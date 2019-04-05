@@ -465,3 +465,5 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/vim,c++,godot,cmake,linux,windows,visualstudio
+
+**.import
