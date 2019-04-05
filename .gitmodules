@@ -1,0 +1,3 @@
+[submodule "sim/godot_headers"]
+	path = sim/godot_headers
+	url = https://github.com/GodotNativeTools/godot_headers
