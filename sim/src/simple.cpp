@@ -4,6 +4,8 @@
 #include <string.h>
 #include "world.hpp"
 
+extern "C" {
+
 typedef struct user_data_struct {
 	char data[256];
 } user_data_struct;
@@ -89,4 +91,7 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data, voi
 	api->godot_string_destroy(&data);
 
 	return ret;
+}
+
+
 }
