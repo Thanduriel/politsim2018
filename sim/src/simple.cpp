@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "world.hpp"
 
 typedef struct user_data_struct {
 	char data[256];
@@ -33,6 +34,14 @@ void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_options *p_opt
 	nativescript_api = NULL;
 }
 
+godot_variant World_Test(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args)
+{
+	godot_variant ret;
+	api->godot_variant_new_int(&ret, World::Test());
+	
+	return ret;
+}
+
 void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 	godot_instance_create_func create = { NULL, NULL, NULL };
 	create.create_func = &simple_constructor;
@@ -48,12 +57,16 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 	godot_method_attributes attributes = { GODOT_METHOD_RPC_MODE_DISABLED };
 
 	nativescript_api->godot_nativescript_register_method(p_handle, "SIMPLE", "get_data", attributes, get_data);
+	
+	godot_instance_method test = { NULL, NULL, NULL };
+	test.method = &World_Test;
+	nativescript_api->godot_nativescript_register_method(p_handle, "SIMPLE", "World_Test", attributes, test);
 }
 
 GDCALLINGCONV void *simple_constructor(godot_object *p_instance, void *p_method_data) {
 	printf("SIMPLE._init()\n");
 	
-	user_data_struct *user_data = api->godot_alloc(sizeof(user_data_struct));
+	user_data_struct *user_data = static_cast<user_data_struct*>(api->godot_alloc(sizeof(user_data_struct)));
 	strcpy(user_data->data, "World from GDNative!");
 
 	return user_data;
