@@ -58,7 +58,7 @@ void register_function(void* p_handle, const char* name, gd_instance_method f) {
 
 GDCALLINGCONV void *world_constructor(godot_object *p_instance, void *p_method_data) {
 	Game::World *world = static_cast<Game::World*>(api->godot_alloc(sizeof(Game::World)));
-	world->Init(Game::Map());
+	new (world) Game::World();
 	return world;
 }
 
