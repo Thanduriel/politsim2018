@@ -1,6 +1,6 @@
 ## Map
-* Tile Size 162 * 162
-* Map Size 11 * 6
+* Tile Size 160 * 160
+* Map Size 12 * 6
 
 ## Menschen
 
@@ -147,6 +147,3 @@
 	* Anprangen:
 	   * zuneigung steigt
 	   
-	   
-## Mathe
-	
