@@ -153,8 +153,8 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 	return ret;
 }
 
-godot_variant world_get_actors(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) {
-
+godot_variant world_get_actors(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) 
+{
 	Game::World& world = *static_cast<Game::World*>(p_user_data);
 
 	godot_variant ret;
@@ -164,6 +164,16 @@ godot_variant world_get_actors(godot_object *p_instance, void *p_method_data, vo
 		api->godot_pool_vector2_array_push_back(&pool_array, reinterpret_cast<const godot_vector2*>(&actor.position));
 	api->godot_variant_new_pool_vector2_array(&ret, &pool_array);
 
+	return ret;
+}
+
+godot_variant world_update(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) 
+{
+	Game::World& world = *static_cast<Game::World*>(p_user_data);
+
+	world.Update(static_cast<float>(api->godot_variant_as_real(p_args[0])));
+
+	godot_variant ret{};
 	return ret;
 }
 
@@ -198,6 +208,7 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 	register_function(p_handle, "World_Test", &World_Test);
 	register_function(p_handle, "init", world_init);
 	register_function(p_handle, "get_actor_positions", world_get_actors);
+	register_function(p_handle, "update", world_update);
 }
 
 }

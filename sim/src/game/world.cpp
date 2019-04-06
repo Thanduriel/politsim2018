@@ -28,6 +28,7 @@ namespace Game {
 
 	void World::Update(float _deltaTime)
 	{
+		std::cout << _deltaTime << "\n";
 		m_time += _deltaTime * m_timeFactor * 5.f;
 		if (m_time >= 1.f)
 		{
