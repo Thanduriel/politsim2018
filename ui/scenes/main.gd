@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 const libpolitsim = preload("res://lib/politsim.gdns")
 onready var PolitSim = libpolitsim.new()
