@@ -474,3 +474,6 @@ MigrationBackup/
 *.filters
 *.sln
 *.exp
+
+# Weird scons cache things
+*.os

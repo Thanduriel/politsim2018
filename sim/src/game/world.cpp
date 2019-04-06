@@ -1,24 +1,39 @@
 #include "world.hpp"
+#include "utils/time.hpp"
+#include <iostream>
 
 namespace Game {
 
 	using namespace Math;
 
-	World::World(std::string_view _mapFile, float _timeFactor, int _numActors)
+	World::World()
 		: m_time(0),
-		m_timeFactor(_timeFactor),
 		m_day(0),
-		m_randomGenerator(Utils::RandomSeed())
+		m_randomGenerator(Utils::RandomSeed()),
+		m_tileSize(0.25) { }
+
+	void World::Init(Map&& _map)
 	{
+		m_map = std::move(_map);
+		m_timeFactor = 1.f / 60.f;
+		const int numActors = 100;
+
+		m_actors.reserve(numActors);
+
+		for (int i = 0; i < numActors; ++i)
+		{
+			m_actors.push_back(GenerateActor());
+		}
 	}
 
 	void World::Update(float _deltaTime)
 	{
-		m_time += _deltaTime * m_timeFactor;
+		m_time += _deltaTime * m_timeFactor * 5.f;
 		if (m_time >= 1.f)
 		{
 			++m_day;
 			m_time -= 1.f;
+			std::cout << "new day " << m_day << "\n";
 		}
 
 		for (Actor& actor : m_actors)
@@ -35,9 +50,14 @@ namespace Game {
 
 				actor.position += (dir + noise).Normalized() * _deltaTime;
 			}
-			else if(actor.wakeUpTime)
+			// switch activity
+			else if(Activity next = static_cast<Activity>((actor.currentActivity + 1) % ACTIVITY_COUNT); 
+				m_time > Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next] ))
 			{
-
+				std::cout << "switching to activity " << next << " at time " << m_time << "\n";
+				actor.currentActivity = next;
+				const Vec2I curInd = PositionToIndex(actor.position);
+				actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
 			}
 		}
 	}
@@ -50,5 +70,34 @@ namespace Game {
 	Vec2 World::IndexToPosition(Vec2I _index) const
 	{
 		return Vec2(_index) * m_tileSize + Vec2(m_tileSize) * 0.5f;
+	}
+
+	Actor World::GenerateActor()
+	{
+		auto RandVec = [this]()
+		{
+			return Math::Vec2I(m_randomGenerator.Uniform(0u, 15u), m_randomGenerator.Uniform(0u, 15u));
+		};
+
+		Actor actor{};
+		actor.activityLocations = { RandVec(), RandVec(), RandVec() };
+		actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
+		actor.wakeUpTime = m_randomGenerator.Uniform(0u, 10u) > 1u ?
+			m_randomGenerator.Normal(0.5f / 24.f) + 7.f / 24.f
+			: m_randomGenerator.Normal(0.5f / 24.f) + 22.f / 24.f;
+		actor.wakeUpTime = Utils::TimeOfDay(actor.wakeUpTime);
+		std::cout << actor.wakeUpTime << "\n";
+
+		// determine current activity
+		float timeDif = m_time - actor.wakeUpTime;
+		if (timeDif < 0) timeDif += 1.f;
+		for(int i = 0; i >= 0; ++i)
+			if (timeDif > TIME_TABLE[i])
+			{
+				actor.currentActivity = static_cast<Activity>(i);
+				break;
+			}
+
+		return actor;
 	}
 }

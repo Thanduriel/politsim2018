@@ -1,12 +1,16 @@
-#include "game/map.hpp"
+#include "game/world.hpp"
 
 int main()
 {
 	using namespace Game;
 	using namespace Math;
 
-	Map map("foo");
-	Path path = map.ComputePath(Vec2I(2, 4), Vec2I(8, 12));
-
-	int i = 42;
+	World world;
+	world.Init(Map());
+//	world.Init("foo", 1.f / 60.f, 1);
+	for (;;)
+	{
+		_sleep(16);
+		world.Update(0.01666666);
+	}
 }
