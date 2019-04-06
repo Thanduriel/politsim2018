@@ -57,6 +57,8 @@ void register_function(void* p_handle, const char* name, gd_instance_method f) {
 
 GDCALLINGCONV void *world_constructor(godot_object *p_instance, void *p_method_data) {
 	Game::World *world = static_cast<Game::World*>(api->godot_alloc(sizeof(Game::World)));
+	new (world) Game::World();
+	world->Init(Game::Map());
 	return world;
 }
 
@@ -76,6 +78,20 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 
 	godot_variant ret;
 	
+	return ret;
+}
+
+godot_variant world_get_actors(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) {
+
+	Game::World& world = *static_cast<Game::World*>(p_user_data);
+
+	godot_variant ret;
+	godot_pool_vector2_array pool_array;
+	api->godot_pool_vector2_array_new(&pool_array);
+	for (const Game::Actor& actor : world.GetActors())
+		api->godot_pool_vector2_array_push_back(&pool_array, reinterpret_cast<const godot_vector2*>(&actor.position));
+	api->godot_variant_new_pool_vector2_array(&ret, &pool_array);
+
 	return ret;
 }
 
@@ -109,6 +125,7 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 	register_function(p_handle, "get_data", &simple_get_data);
 	register_function(p_handle, "World_Test", &World_Test);
 	register_function(p_handle, "init", world_init);
+	register_function(p_handle, "get_actor_positions", world_get_actors);
 }
 
 }

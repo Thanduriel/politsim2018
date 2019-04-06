@@ -16,7 +16,7 @@ namespace Game {
 
 		void Update(float _deltaTime);
 
-
+		const std::vector<Actor>& GetActors() const { return m_actors; }
 	private:
 		Math::Vec2I PositionToIndex(Math::Vec2 _position) const;
 		// gives position of a tile's center
