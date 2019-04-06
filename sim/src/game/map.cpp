@@ -2,6 +2,7 @@
 #include "utils/random.hpp"
 #include <limits>
 #include <iostream>
+#include <queue>
 
 namespace Game {
 
@@ -10,7 +11,7 @@ namespace Game {
 	Map::Map(int width, int height, std::vector<Tile>&& tiles)
 		: m_size(width, height),
 		m_tiles(std::move(tiles)),
-		m_flags(tiles.size()) 
+		m_flags(m_tiles.size()) 
 	{
 		for (int y = 0; y < m_size.y; ++y)
 		{
@@ -38,9 +39,15 @@ namespace Game {
 		// reset buffer
 		for (TileFlag& flag : m_flags) flag.distance = std::numeric_limits<int>::max();
 
-		std::vector<Vec2I> stack;
+		auto cmp = [&](const Vec2I& _lhs, const Vec2I& _rhs)
+		{
+			return m_flags[GetIndex(_lhs)].distance > m_flags[GetIndex(_rhs)].distance;
+		};
+		int i = 0;
+		std::priority_queue<Vec2I, std::vector<Vec2I>, decltype(cmp)> queue(cmp);
 		auto AddOption = [&](Vec2I _index, Direction _dir, int _dist)
 		{
+			++i;
 			if (!IsInside(_index)) return;
 
 			const int index = GetIndex(_index);
@@ -53,18 +60,20 @@ namespace Game {
 			{
 				m_flags[index].distance = _dist;
 				m_flags[index].dir = _dir;
-				stack.push_back(_index);
+				queue.push(_index);
 			}
 				
 		};
 
 		m_flags[GetIndex(_begin)].distance = 0;
-		stack.push_back(_begin);
+		queue.push(_begin);
 
-		while (stack.size())
+		while (queue.size())
 		{
-			const Vec2I current = stack.back();
-			stack.pop_back();
+			const Vec2I current = queue.top();
+			queue.pop();
+			if (current == _end)
+				break;
 			int dist = m_flags[GetIndex(current)].distance + 1;
 
 			AddOption(current + Vec2I(1, 0), Right, dist);
@@ -77,6 +86,11 @@ namespace Game {
 		Path path;
 
 		Vec2I current = _end;
+		auto v = m_flags[GetIndex(current)].distance;
+		if (m_flags[GetIndex(current)].distance == std::numeric_limits<int>::max())
+		{
+			return path;
+		}
 		while (current != _begin)
 		{
 			path.push_back(current);
