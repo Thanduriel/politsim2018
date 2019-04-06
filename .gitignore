@@ -467,3 +467,10 @@ MigrationBackup/
 # End of https://www.gitignore.io/api/vim,c++,godot,cmake,linux,windows,visualstudio
 
 **.import
+
+# vs project files
+*.dblite
+*.vcxproj
+*.filters
+*.sln
+*.exp
