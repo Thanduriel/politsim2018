@@ -14,7 +14,7 @@ func _process(delta):
 	var pos = global.World.get_actor_positions()
 	var all_citizen = citizen.get_children()
 	
-	# global.World.update(delta)
+	global.World.update(delta)
 	
 	if all_citizen.size() < pos.size():
 		var missing = pos.size() - all_citizen.size()
