@@ -2,18 +2,18 @@
 	"width": 12,
 	"height": 6,
 	"texture": [
-		"facility",0
-		"field",1
-		"kurve_no",2
-		"kurve_so",3
-		"kurve_wn",4
-		"kurve_ws",5
-		"polico_station",6
-		"skat_park",7
-		"tennis",8
-		"weg_ns",9
-		"weg_wo",10
-		"industrie"11
+		"facility",
+		"field",
+		"kurve_no",
+		"kurve_so",
+		"kurve_wn",
+		"kurve_ws",
+		"polic_station",
+		"skat_park",
+		"tennis",
+		"weg_ns",
+		"weg_wo",
+		"industrie"
 	],
 	"tiles": [
 		[
@@ -155,7 +155,7 @@
 			},
 			{
 				"type": "work",
-				"income": 4
+				"income": 4,
 				"texture": -1
 			},
 			{
@@ -210,12 +210,12 @@
 			},
 			{
 				"type": "hobby",
-				"name": "tennis"
+				"name": "tennis",
 				"texture": 8
 			},
 			{
 				"type": "hobby",
-				"name": "acard"
+				"name": "acard",
 				"texture": -1
 			},
 			{
@@ -234,138 +234,153 @@
 				"texture": -1
 			},
 			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
+				"type": "residence",
+				"quality": "mid",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 5
 			},
 			{
 				"type": "work",
-				"quality": "high",
-				"texture": 0
+				"income": 2,
+				"texture": 11
 			},
 			{
 				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
+				"income": 2,
+				"texture": 11
 			}
 		],
 		[
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"type": "work",
+				"income": 5,
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "hobby",
+				"name": "acard",
+				"texture": -1
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": 1
+				"texture": -1
 			},
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"type": "hobby",
+				"name": "skat_park",
+				"texture": 7
 			},
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"type": "street",
+				"quality": "low",
+				"texture": 2
 			},
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"type": "street",
+				"quality": "low",
+				"texture": 10
 			},
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"type": "street",
+				"quality": "low",
+				"texture": 10
 			}
 		],
 		[
 			{
+				"type": "work",
+				"income": 5,
+				"texture": -1
+			},
+			{
+				"type": "work",
+				"income": 5,
+				"texture": -1
+			},
+			{
+				"type": "work",
+				"income": 4,
+				"texture": -1
+			},
+			{
 				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"quality": "mid",
+				"texture": -1
+			},
+			{
+				"type": "residence",
+				"quality": "mid",
+				"texture": -1
+			},
+			{
+				"type": "hobby",
+				"name": "skat_park",
+				"texture": 7
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": 1
+				"texture": -1
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": 1
+				"texture": -1
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": 1
+				"texture": -1
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": 1
+				"texture": -1
 			},
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"type": "work",
+				"income": 1,
+				"texture": -1
 			},
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
+				"type": "work",
+				"income": 1,
+				"texture": -1
 			}
 		]
 	]
