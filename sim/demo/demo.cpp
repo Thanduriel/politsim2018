@@ -6,6 +6,7 @@ int main()
 	using namespace Math;
 
 	World world;
+	world.Init(Map());
 //	world.Init("foo", 1.f / 60.f, 1);
 	for (;;)
 	{
