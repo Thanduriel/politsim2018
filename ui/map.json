@@ -22,7 +22,8 @@
 		"strasse_wo",
 		"strasse_ws",
 		"residence_high",
-		"dienstleister"
+		"dienstleister",
+		"theater"
 	],
 	"tiles": [
 		[
@@ -101,7 +102,7 @@
 			{
 				"type": "hobby",
 				"name": "theater",
-				"texture": -1
+				"texture": 21
 			},
 			{
 				"type": "residence",
