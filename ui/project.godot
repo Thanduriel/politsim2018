@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="PolitSim2018"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/icon="res://icon.png"
+
+[gui]
+
+theme/custom="res://assets/gui/theme.tres"
 
 [rendering]
 
