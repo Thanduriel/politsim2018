@@ -35,7 +35,7 @@ namespace Game {
 
 			const int index = GetIndex(_index);
 			const Tile& tile = m_tiles[index];
-			if ((tile.isWalkable /*|| tile.type == Get(_begin).type || tile.type == Get(_end).type*/)
+			if ((tile.type == Tile::Type::Street /*|| tile.type == Get(_begin).type || tile.type == Get(_end).type*/)
 				&& _dist < m_flags[index].distance)
 			{
 				m_flags[index].distance = _dist;
