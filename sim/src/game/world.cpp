@@ -10,10 +10,7 @@ namespace Game {
 		: m_time(0),
 		m_day(0),
 		m_randomGenerator(Utils::RandomSeed()),
-		m_tileSize(0.25)
-	{
-		
-	}
+		m_tileSize(0.25) { }
 
 	void World::Init(Map&& _map)
 	{

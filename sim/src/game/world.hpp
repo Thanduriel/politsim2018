@@ -11,6 +11,7 @@ namespace Game {
 	{
 	public:
 		World();
+
 		void Init(Map&& _map);
 
 		void Update(float _deltaTime);

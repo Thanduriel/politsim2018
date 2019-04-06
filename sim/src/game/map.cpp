@@ -6,14 +6,10 @@ namespace Game {
 
 	using namespace Math;
 
-	Map::Map()
-		: m_size(16, 16),
-		m_tiles(m_size.x * m_size.y, Tile{"foo", true, Tile::Type::Default}),
-		m_flags(m_tiles.size())
-	{
-		for (int i = 0; i < 15; ++i)
-			m_tiles[GetIndex(Vec2I(i, 8))].isWalkable = false;
-	}
+	Map::Map(int width, int height, std::vector<Tile> tiles)
+		: m_size(width, height),
+		m_tiles(tiles),
+		m_flags(tiles.size()) {}
 
 	const Map::Tile& Map::Get(Math::Vec2I _index) const
 	{

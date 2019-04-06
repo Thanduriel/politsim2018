@@ -25,8 +25,7 @@ namespace Game {
 			Type type;
 		};
 
-		// load from json
-		Map();
+		Map(int width, int height, std::vector<Tile> tiles);
 
 		const Tile& Get(Math::Vec2I _index) const;
 		bool IsInside(Math::Vec2I _index) const;
