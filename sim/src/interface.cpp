@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fstream>
 #include "game/world.hpp"
 
 extern "C" {
@@ -57,25 +58,120 @@ void register_function(void* p_handle, const char* name, gd_instance_method f) {
 
 GDCALLINGCONV void *world_constructor(godot_object *p_instance, void *p_method_data) {
 	Game::World *world = static_cast<Game::World*>(api->godot_alloc(sizeof(Game::World)));
+	world->Init(Game::Map());
 	return world;
 }
 
+godot_string gs_str(const char* s) {
+	return api->godot_string_chars_to_utf8(s);
+}
+
+godot_variant gv_str(const char* s) {
+	godot_string str = gs_str(s);
+	godot_variant ret;
+	api->godot_variant_new_string(&ret, &str);
+	return ret;
+}
+
+godot_string g_dict_get_s(const godot_dictionary* d, const char* s) {
+	godot_variant gs = gv_str(s);
+	godot_variant v = api->godot_dictionary_get(d, &gs);
+	return api->godot_variant_as_string(&v);
+}
+
+bool g_s_eq(const godot_string* a, const godot_string* b) {
+	return api->godot_string_operator_equal(a, b);
+}
+
+// pls no
 godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) {
 	Game::World *world = static_cast<Game::World*>(p_user_data);
 
 	godot_dictionary map_data = api->godot_variant_as_dictionary(*p_args);
-	int width = 1, height = 1;
 
-	godot_string s;
-	api->godot_string_format(&s, *p_args);
-	api->godot_print(&s);
+	godot_variant s_width = gv_str("width");
+	godot_variant width_v = api->godot_dictionary_get(&map_data, &s_width);
+	int width = api->godot_variant_as_int(&width_v);
+
+	godot_variant s_height = gv_str("height");
+	godot_variant height_v = api->godot_dictionary_get(&map_data, &s_height);
+	int height = api->godot_variant_as_int(&height_v);
+
+	godot_variant s_tiles = gv_str("tiles");
+	godot_variant tiles_v = api->godot_dictionary_get(&map_data, &s_tiles);
+	godot_array a_tiles = api->godot_variant_as_array(&tiles_v);
+	godot_variant s_type = gv_str("type"), s_income = gv_str("income");
+
+	godot_string s_residence = gs_str("residence"), s_street = gs_str("street"), s_work = gs_str("work"), s_hobby = gs_str("hobby");
+	godot_string s_high = gs_str("high"), s_mid = gs_str("mid"), s_low = gs_str("low"), s_poor = gs_str("poor");
+	godot_string s_skate = gs_str("skate"), s_theater = gs_str("theater"), s_acarde = gs_str("acarde"), s_tennis = gs_str("tennis");
 
 	std::vector<Game::Map::Tile> tiles;
-	Game::Map map(width, height, tiles);
-	world->Init(std::move(map));
+
+	for (godot_int y = 0; y < height; y++) {
+		godot_variant v_row = api->godot_array_get(&a_tiles, y);
+		godot_array row = api->godot_variant_as_array(&v_row);
+
+		for (godot_int x = 0; x < width; x++) {
+			godot_variant v_tile = api->godot_array_get(&row, x);
+			godot_dictionary tile = api->godot_variant_as_dictionary(&v_tile);
+			
+			godot_string type = g_dict_get_s(&tile, "type");
+			Game::Map::Tile t;
+
+			if (g_s_eq(&type, &s_residence)) {
+				t.type = Game::Map::Tile::Type::Residence;
+				godot_string quality = g_dict_get_s(&tile, "quality");
+				if (g_s_eq(&quality, &s_high)) t.info.quality = Game::Map::Tile::Info::Quality::High;
+				else if (g_s_eq(&quality, &s_mid)) t.info.quality = Game::Map::Tile::Info::Quality::Mid;
+				else if (g_s_eq(&quality, &s_low)) t.info.quality = Game::Map::Tile::Info::Quality::Low;
+				else if (g_s_eq(&quality, &s_poor)) t.info.quality = Game::Map::Tile::Info::Quality::Poor;
+			} else if (g_s_eq(&type, &s_street)) {
+				t.type = Game::Map::Tile::Type::Street;
+			} else if (g_s_eq(&type, &s_work)) {
+				t.type = Game::Map::Tile::Type::Work;
+				godot_variant v_income = api->godot_dictionary_get(&tile, &s_income);
+				t.info.income = api->godot_variant_as_int(&v_income);
+			} else if (g_s_eq(&type, &s_hobby)) {
+				t.type = Game::Map::Tile::Type::Hobby;
+				godot_string name = g_dict_get_s(&tile, "name");
+				if (g_s_eq(&name, &s_skate)) t.info.hobby = Game::Map::Tile::Info::Hobby::Skate;
+				else if (g_s_eq(&name, &s_theater)) t.info.hobby = Game::Map::Tile::Info::Hobby::Theater;
+				else if (g_s_eq(&name, &s_acarde)) t.info.hobby = Game::Map::Tile::Info::Hobby::Acarde;
+				else if (g_s_eq(&name, &s_tennis)) t.info.hobby = Game::Map::Tile::Info::Hobby::Tennis;
+			} else { /* we have a problem */ }
+
+			tiles.push_back(t);
+		}
+	}
+
+	world->Init(Game::Map(width, height, std::move(tiles)));
+
+	godot_variant ret{};
+	return ret;
+}
+
+godot_variant world_get_actors(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) 
+{
+	Game::World& world = *static_cast<Game::World*>(p_user_data);
 
 	godot_variant ret;
-	
+	godot_pool_vector2_array pool_array;
+	api->godot_pool_vector2_array_new(&pool_array);
+	for (const Game::Actor& actor : world.GetActors())
+		api->godot_pool_vector2_array_push_back(&pool_array, reinterpret_cast<const godot_vector2*>(&actor.position));
+	api->godot_variant_new_pool_vector2_array(&ret, &pool_array);
+
+	return ret;
+}
+
+godot_variant world_update(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) 
+{
+	Game::World& world = *static_cast<Game::World*>(p_user_data);
+
+	world.Update(static_cast<float>(api->godot_variant_as_real(p_args[0])));
+
+	godot_variant ret{};
 	return ret;
 }
 
@@ -109,6 +205,8 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 	register_function(p_handle, "get_data", &simple_get_data);
 	register_function(p_handle, "World_Test", &World_Test);
 	register_function(p_handle, "init", world_init);
+	register_function(p_handle, "get_actor_positions", world_get_actors);
+	register_function(p_handle, "update", world_update);
 }
 
 }

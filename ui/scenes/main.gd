@@ -1,9 +1,29 @@
 extends Node
 
-const libpolitsim = preload("res://lib/politsim.gdns")
-# onready var PolitSim = libpolitsim.new()
+onready var global = get_node("/root/global")
+var citizen_texture = load("res://assets/citizen/citizen1.tres")
+
+var citizen = Node2D.new()
 
 func _ready():
-	print("hallo");
-	# PolitSim.init(42)
-	# print(PolitSim.World_Test())
+	global.initialise()
+	
+	add_child(citizen)
+	
+func _process(delta):
+	var pos = global.World.get_actor_positions()
+	var all_citizen = citizen.get_children()
+	
+	# global.World.update(delta)
+	
+	if all_citizen.size() < pos.size():
+		var missing = pos.size() - all_citizen.size()
+		for i in range(missing):
+			var c = Sprite.new()
+			c.scale *= 0.3
+			c.set_texture(citizen_texture)
+			citizen.add_child(c)
+	
+	for i in range(all_citizen.size()):
+		# 0.25/tile => 4 tiles/1unit
+		all_citizen[i].position = pos[i] * 4 * 160 * $tiles.scale

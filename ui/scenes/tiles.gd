@@ -1,14 +1,8 @@
 extends TileMap
 
-func read_map():
-	var map_file = File.new()
-	map_file.open("res://map.json", File.READ)
-	var map_data = map_file.get_as_text()
-	map_file.close()
-	return JSON.parse(map_data).result
+onready var global = get_node("/root/global")
 
 const tiles_path = "res://assets/tiles/%s"
-var map
 
 func get_texture_by_name(name):
 	var path = tiles_path % (name + ".png")
@@ -19,10 +13,11 @@ func get_texture_by_name(name):
 	return load(path)
 	
 func get_texture_by_id(id):
-	return get_texture_by_name(map.texture[id])
+	return get_texture_by_name(global.map.texture[id])
 
 func _ready():
-	map = read_map()
+	global.initialise()
+	var map = global.map
 	tile_set.clear()
 	for t in range(map.texture.size()):
 		tile_set.create_tile(t)
