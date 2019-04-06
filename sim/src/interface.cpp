@@ -137,7 +137,7 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 				godot_string name = g_dict_get_s(&tile, "name");
 				if (g_s_eq(&name, &s_skate)) t.info.hobby = Game::Map::Tile::Info::Hobby::Skate;
 				else if (g_s_eq(&name, &s_theater)) t.info.hobby = Game::Map::Tile::Info::Hobby::Theater;
-				else if (g_s_eq(&name, &s_acarde)) t.info.hobby = Game::Map::Tile::Info::Hobby::Acarde;
+				else if (g_s_eq(&name, &s_acarde)) t.info.hobby = Game::Map::Tile::Info::Hobby::Arcade;
 				else if (g_s_eq(&name, &s_tennis)) t.info.hobby = Game::Map::Tile::Info::Hobby::Tennis;
 			} else { /* we have a problem */ }
 

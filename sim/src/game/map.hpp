@@ -18,7 +18,7 @@ namespace Game {
 			enum struct Type
 			{
 				Residence, Street, Work, Hobby,Government,Park
-			} Type;
+			} type;
 			union Info
 			{
 				enum struct Hobby {
