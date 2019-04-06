@@ -16,7 +16,7 @@ namespace Game {
 	{
 		m_map = std::move(_map);
 		m_timeFactor = 1.f / 60.f;
-		const int numActors = 512;
+		const int numActors = 100;
 
 		m_actors.reserve(numActors);
 
@@ -33,6 +33,7 @@ namespace Game {
 		{
 			++m_day;
 			m_time -= 1.f;
+			std::cout << "new day " << m_day << "\n";
 		}
 
 		for (Actor& actor : m_actors)
@@ -81,8 +82,21 @@ namespace Game {
 		Actor actor{};
 		actor.activityLocations = { RandVec(), RandVec(), RandVec() };
 		actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
-		actor.wakeUpTime = m_randomGenerator.Uniform(4.f/24.f, 1.f);
-		actor.currentActivity = Activity::Home;
+		actor.wakeUpTime = m_randomGenerator.Uniform(0u, 10u) > 1u ?
+			m_randomGenerator.Normal(0.5f / 24.f) + 7.f / 24.f
+			: m_randomGenerator.Normal(0.5f / 24.f) + 22.f / 24.f;
+		actor.wakeUpTime = Utils::TimeOfDay(actor.wakeUpTime);
+		std::cout << actor.wakeUpTime << "\n";
+
+		// determine current activity
+		float timeDif = m_time - actor.wakeUpTime;
+		if (timeDif < 0) timeDif += 1.f;
+		for(int i = 0; i >= 0; ++i)
+			if (timeDif > TIME_TABLE[i])
+			{
+				actor.currentActivity = static_cast<Activity>(i);
+				break;
+			}
 
 		return actor;
 	}

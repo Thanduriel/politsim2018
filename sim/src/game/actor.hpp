@@ -7,9 +7,9 @@
 namespace Game {
 
 	enum Activity {
-		Home,
 		Work,
 		Hobby,
+		Home,
 		ACTIVITY_COUNT
 	};
 
