@@ -23,10 +23,10 @@ namespace Game {
 			{
 				enum struct Hobby {
 					Skate, Theater, Acard, Tennis
-				};
+				} hobby;
 				enum struct Quality {
 					High, Mid, Low, Poor
-				};
+				} quality;
 				int income;
 			} info;
 		};
