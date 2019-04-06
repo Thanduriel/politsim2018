@@ -5,8 +5,6 @@ var citizen_texture = load("res://assets/citizen/citizen1.tres")
 
 var citizen = Node2D.new()
 
-onready var offset = Vector2(0.125, 0.125)
-
 func _ready():
 	global.initialise()
 	
@@ -28,6 +26,4 @@ func _process(delta):
 	
 	for i in range(all_citizen.size()):
 		# 0.25/tile => 4 tiles/1unit
-		# var v = tile_to_pixel(world_to_tile(pos[i]))
 		all_citizen[i].position = pos[i] * 4 * 160 * $tiles.scale
-		# all_citizen[i].position = $tiles.map_to_world(pos[i] * 4)

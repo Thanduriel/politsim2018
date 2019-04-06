@@ -13,12 +13,10 @@ func read_map():
 	var map_data = map_file.get_as_text()
 	map_file.close()
 	return JSON.parse(map_data).result
-
-func _ready():
-	map = read_map()
 	
 func initialise():
 	if not initialised:
+		map = read_map()
 		World = libpolitsim.new()
 		World.init(map)
 		initialised = true
