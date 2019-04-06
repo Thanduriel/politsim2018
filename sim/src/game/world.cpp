@@ -1,4 +1,6 @@
 #include "world.hpp"
+#include "utils/time.hpp"
+#include <iostream>
 
 namespace Game {
 
@@ -8,13 +10,30 @@ namespace Game {
 		: m_time(0),
 		m_timeFactor(_timeFactor),
 		m_day(0),
-		m_randomGenerator(Utils::RandomSeed())
+		m_randomGenerator(Utils::RandomSeed()),
+		m_map(_mapFile),
+		m_tileSize(0.25)
 	{
+		m_actors.reserve(_numActors);
+		auto RandVec = [this]()
+		{
+			return Math::Vec2I(m_randomGenerator.Uniform(0u, 15u), m_randomGenerator.Uniform(0u, 15u));
+		};
+		for (int i = 0; i < _numActors; ++i)
+		{
+			Actor actor{};
+			actor.activityLocations = { RandVec(), RandVec(), RandVec() };
+			actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
+			actor.wakeUpTime = m_randomGenerator.Uniform(0.f, 1.f);
+			actor.currentActivity = Activity::Home;
+
+			m_actors.push_back(actor);
+		}
 	}
 
 	void World::Update(float _deltaTime)
 	{
-		m_time += _deltaTime * m_timeFactor;
+		m_time += _deltaTime * m_timeFactor * 5.f;
 		if (m_time >= 1.f)
 		{
 			++m_day;
@@ -35,9 +54,14 @@ namespace Game {
 
 				actor.position += (dir + noise).Normalized() * _deltaTime;
 			}
-			else if(actor.wakeUpTime)
+			// switch activity
+			else if(Activity next = static_cast<Activity>((actor.currentActivity + 1) % ACTIVITY_COUNT); 
+				m_time > Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next] ))
 			{
-
+				std::cout << "switching to activity " << next << " at time " << m_time << "\n";
+				actor.currentActivity = next;
+				const Vec2I curInd = PositionToIndex(actor.position);
+				actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
 			}
 		}
 	}

@@ -1,13 +1,11 @@
 #pragma once
 
 #include "actor.hpp"
+#include "map.hpp"
 #include "utils/random.hpp"
 #include <vector>
 
 namespace Game {
-
-	// 1 is 24h
-	using TimeOfDay = float;
 
 	class World
 	{
@@ -22,13 +20,14 @@ namespace Game {
 		// gives position of a tile's center
 		Math::Vec2 IndexToPosition(Math::Vec2I _index) const;
 
-		TimeOfDay m_time;
+		float m_time;
 		float m_timeFactor;
 		int m_day;
 
 		float m_tileSize;
 
 		std::vector<Actor> m_actors;
+		Map m_map;
 		Utils::RandomGenerator m_randomGenerator;
 	};
 

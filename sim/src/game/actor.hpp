@@ -2,26 +2,31 @@
 
 #include "utils/vector.hpp"
 #include "map.hpp"
+#include <array>
 
 namespace Game {
 
-	enum struct Goal {
+	enum Activity {
 		Home,
 		Work,
-		Hobby
+		Hobby,
+		ACTIVITY_COUNT
+	};
+
+	constexpr std::array<float, ACTIVITY_COUNT> TIME_TABLE =
+	{
+		0.f, 8.f/ 24.f, 16.f / 24.f
 	};
 
 	struct Actor
 	{
 		// personal properties
-		Math::Vec2I home;
-		Math::Vec2I workPlace;
-		Math::Vec2I hobbyPlace;
+		std::array<Math::Vec2I, ACTIVITY_COUNT> activityLocations;
 		float wakeUpTime;
 	
 		// current state
 		Math::Vec2 position;
-		Goal currentGoal;
+		Activity currentActivity;
 		Path currentPath;
 	};
 
