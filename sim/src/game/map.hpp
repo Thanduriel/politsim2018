@@ -18,11 +18,11 @@ namespace Game {
 			enum struct Type
 			{
 				Residence, Street, Work, Hobby
-			} Type;
+			} type;
 			union Info
 			{
 				enum struct Hobby {
-					Skate, Theater, Acard, Tennis
+					Skate, Theater, Acarde, Tennis
 				} hobby;
 				enum struct Quality {
 					High, Mid, Low, Poor
