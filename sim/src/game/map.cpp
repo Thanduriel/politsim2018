@@ -1,15 +1,25 @@
 #include "map.hpp"
 #include "utils/random.hpp"
 #include <limits>
+#include <iostream>
 
 namespace Game {
 
 	using namespace Math;
 
-	Map::Map(int width, int height, std::vector<Tile> tiles)
+	Map::Map(int width, int height, std::vector<Tile>&& tiles)
 		: m_size(width, height),
-		m_tiles(tiles),
-		m_flags(tiles.size()) {}
+		m_tiles(std::move(tiles)),
+		m_flags(tiles.size()) 
+	{
+		for (int y = 0; y < m_size.y; ++y)
+		{
+			for (int x = 0; x < m_size.x; ++x)
+				std::cout << static_cast<int>(m_tiles[x + y * m_size.x].type) << " ";
+
+			std::cout << "\n";
+		}
+	}
 
 	const Map::Tile& Map::Get(Math::Vec2I _index) const
 	{
@@ -35,7 +45,10 @@ namespace Game {
 
 			const int index = GetIndex(_index);
 			const Tile& tile = m_tiles[index];
-			if ((tile.type == Tile::Type::Street /*|| tile.type == Get(_begin).type || tile.type == Get(_end).type*/)
+			const Tile::Type typeBegin = Get(_begin).type;
+			const Tile::Type typeEnd = Get(_end).type;
+			if ((tile.type == Tile::Type::Street 
+				|| tile.type == typeBegin || tile.type == typeEnd)
 				&& _dist < m_flags[index].distance)
 			{
 				m_flags[index].distance = _dist;

@@ -59,7 +59,6 @@ void register_function(void* p_handle, const char* name, gd_instance_method f) {
 GDCALLINGCONV void *world_constructor(godot_object *p_instance, void *p_method_data) {
 	Game::World *world = static_cast<Game::World*>(api->godot_alloc(sizeof(Game::World)));
 	new (world) Game::World();
-	world->Init(Game::Map());
 	return world;
 }
 
@@ -145,11 +144,10 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 			tiles.push_back(t);
 		}
 	}
-	
-	Game::Map map(width, height, tiles);
-	world->Init(std::move(map));
 
-	godot_variant ret;
+	world->Init(Game::Map(width, height, std::move(tiles)));
+
+	godot_variant ret{};
 	return ret;
 }
 

@@ -19,7 +19,7 @@ namespace Game {
 		const int numActors = 100;
 
 		m_actors.reserve(numActors);
-
+	//	std::cout << m_map.GetSize().x << " , " << m_map.GetSize().y << std::endl;
 		for (int i = 0; i < numActors; ++i)
 		{
 			m_actors.push_back(GenerateActor());
@@ -28,7 +28,6 @@ namespace Game {
 
 	void World::Update(float _deltaTime)
 	{
-		std::cout << _deltaTime << "\n";
 		m_time += _deltaTime * m_timeFactor * 5.f;
 		if (m_time >= 1.f)
 		{
@@ -70,14 +69,15 @@ namespace Game {
 
 	Vec2 World::IndexToPosition(Vec2I _index) const
 	{
-		return Vec2(_index) * m_tileSize + Vec2(m_tileSize) * 0.5f;
+		return Vec2(_index) * m_tileSize + Vec2(m_tileSize * 0.5f);
 	}
 
 	Actor World::GenerateActor()
 	{
 		auto RandVec = [this]()
 		{
-			return Math::Vec2I(m_randomGenerator.Uniform(0u, 15u), m_randomGenerator.Uniform(0u, 15u));
+			return Math::Vec2I(m_randomGenerator.Uniform(0u, m_map.GetSize().x - 1), 
+				m_randomGenerator.Uniform(0u, m_map.GetSize().y - 1));
 		};
 
 		Actor actor{};
@@ -87,7 +87,6 @@ namespace Game {
 			m_randomGenerator.Normal(0.5f / 24.f) + 7.f / 24.f
 			: m_randomGenerator.Normal(0.5f / 24.f) + 22.f / 24.f;
 		actor.wakeUpTime = Utils::TimeOfDay(actor.wakeUpTime);
-		std::cout << actor.wakeUpTime << "\n";
 
 		// determine current activity
 		float timeDif = m_time - actor.wakeUpTime;

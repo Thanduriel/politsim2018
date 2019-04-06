@@ -32,9 +32,11 @@ namespace Game {
 		};
 
 		Map() = default;
-		Map(int width, int height, std::vector<Tile> tiles);
+		Map(int width, int height, std::vector<Tile>&& tiles);
 
 		const Tile& Get(Math::Vec2I _index) const;
+		Math::Vec2I GetSize() const { return m_size; }
+
 		bool IsInside(Math::Vec2I _index) const;
 		Path ComputePath(Math::Vec2I _begin, Math::Vec2I _end) const;
 	private:
