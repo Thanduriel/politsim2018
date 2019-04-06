@@ -2,6 +2,7 @@
 	"width": 11,
 	"height": 6,
 	"texture": [
+		"tennis",
 		"work",
 		"residence",
 		"street",

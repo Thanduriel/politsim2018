@@ -21,24 +21,24 @@ anchor_bottom = 1.0
 margin_bottom = -521.0
 
 [node name="status_ui" parent="Control" instance=ExtResource( 1 )]
-margin_bottom = 79.0
+margin_bottom = 84.0
 
 [node name="VSeparator" type="VSeparator" parent="Control"]
 margin_left = 252.0
 margin_right = 317.29
-margin_bottom = 79.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 margin_left = 321.0
 margin_right = 385.0
-margin_bottom = 79.0
+margin_bottom = 84.0
 
 [node name="Button" type="Button" parent="Control/CenterContainer"]
-margin_top = 7.0
+margin_top = 10.0
 margin_right = 64.0
-margin_bottom = 71.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 64, 64 )
 hint_tooltip = "Rede halten"
 focus_mode = 0

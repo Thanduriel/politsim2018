@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/gui/coin.png" type="Texture" id=2]
-[ext_resource path="res://scenes/bottom_ui.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/tiles.gd" type="Script" id=3]
+[ext_resource path="res://scenes/bottom_ui.tscn" type="PackedScene" id=4]
 
 [sub_resource type="TileSet" id=1]
 0/name = "coin.png 0"
@@ -23,9 +24,12 @@ script = ExtResource( 1 )
 
 [node name="tiles" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
+cell_size = Vector2( 160, 160 )
+cell_quadrant_size = 1
 format = 1
+script = ExtResource( 3 )
 
-[node name="bottom_ui" parent="." instance=ExtResource( 3 )]
+[node name="bottom_ui" parent="." instance=ExtResource( 4 )]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
