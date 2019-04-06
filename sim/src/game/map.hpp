@@ -17,12 +17,12 @@ namespace Game {
 		{
 			enum struct Type
 			{
-				Residence, Street, Work, Hobby
+				Residence, Street, Work, Hobby,Government,Park
 			} Type;
 			union Info
 			{
 				enum struct Hobby {
-					Skate, Theater, Acard, Tennis
+					Skate, Theater, Arcade, Tennis
 				} hobby;
 				enum struct Quality {
 					High, Mid, Low, Poor
