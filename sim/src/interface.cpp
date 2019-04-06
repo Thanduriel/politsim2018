@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "world.hpp"
+#include "game/world.hpp"
 
 extern "C" {
 
@@ -39,7 +39,7 @@ void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_options *p_opt
 godot_variant World_Test(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args)
 {
 	godot_variant ret;
-	api->godot_variant_new_int(&ret, World::Test());
+//	api->godot_variant_new_int(&ret, World::Test());
 	
 	return ret;
 }

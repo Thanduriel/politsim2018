@@ -7,15 +7,22 @@ func read_map():
 	map_file.close()
 	return JSON.parse(map_data).result
 
-onready var map = read_map()
+const tiles_path = "res://assets/tiles/%s"
+var map
 
 func get_texture_by_name(name):
-	return load("res://assets/tiles/%s.png" % name)
+	var path = tiles_path % (name + ".png")
+	if ResourceLoader.exists(path):
+		return load(path)
+	
+	path = tiles_path % (name + ".tres")
+	return load(path)
 	
 func get_texture_by_id(id):
 	return get_texture_by_name(map.texture[id])
 
 func _ready():
+	map = read_map()
 	tile_set.clear()
 	for t in range(map.texture.size()):
 		tile_set.create_tile(t)
