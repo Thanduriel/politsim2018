@@ -29,7 +29,9 @@
 		"bundestagr",
 		"bank",
 		"platzl",
-		"platzr"
+		"platzr",
+		"handwerker",
+		"arcade"
 	],
 	"tiles": [
 		[
@@ -231,8 +233,8 @@
 			},
 			{
 				"type": "hobby",
-				"name": "acard",
-				"texture": -1
+				"name": "arcade",
+				"texture": 29
 			},
 			{
 				"type": "residence",
@@ -279,7 +281,7 @@
 			{
 				"type": "work",
 				"income": 5,
-				"texture": -1
+				"texture": 28
 			},
 			{
 				"type": "street",
@@ -308,8 +310,8 @@
 			},
 			{
 				"type": "hobby",
-				"name": "acard",
-				"texture": -1
+				"name": "arcade",
+				"texture": 29
 			},
 			{
 				"type": "residence",
@@ -341,12 +343,12 @@
 			{
 				"type": "work",
 				"income": 5,
-				"texture": -1
+				"texture": 28
 			},
 			{
 				"type": "work",
 				"income": 5,
-				"texture": -1
+				"texture": 28
 			},
 			{
 				"type": "work",
