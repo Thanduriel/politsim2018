@@ -1,220 +1,237 @@
 {
-	"width": 11,
+	"width": 12,
 	"height": 6,
 	"texture": [
-		"tennis",
-		"work",
-		"residence",
-		"street",
-		"bank"
+		"facility",0
+		"field",1
+		"kurve_no",2
+		"kurve_so",3
+		"kurve_wn",4
+		"kurve_ws",5
+		"polico_station",6
+		"skat_park",7
+		"tennis",8
+		"weg_ns",9
+		"weg_wo",10
+		"industrie"11
 	],
 	"tiles": [
 		[
 			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			}
-		],
-		[
-			{
 				"type": "residence",
-				"quality": "poor",
+				"quality": "high",
+				"texture": 	-1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "work",
+				"income": 6,
+				"texture": -1
+			},
+			{
+				"type": "work",
+				"income": 6,
+				"texture": -1
+			},
+			{
+				"type": "work",
+				"income": 4,
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 3
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 10
+			},
+			{
+				"type": "work",
+				"income": 3,
 				"texture": 1
 			},
 			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
-				"texture": 1
-			},
-			{
-				"type": "residence",
-				"quality": "poor",
+				"type": "work",
+				"income": 3,
 				"texture": 1
 			}
 		],
 		[
 			{
+				"type": "residence",
+				"quality": "high",
+				"texture": -1
+			},
+			{
 				"type": "street",
-				"quality": "low",
-				"texture": 2
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "hobby",
+				"name": "theater",
+				"texture": -1
+			},
+			{
+				"type": "residence",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
+			},
+			{
+				"type": "goverment",
+				"texture": -1
+			},
+			{
+				"type": "goverment",
+				"texture": -1
+			},
+			{
+				"type": "police",
+				"texture": 6
 			},
 			{
 				"type": "street",
 				"quality": "low",
-				"texture": 2
+				"texture": 9
 			},
 			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
+				"type": "residence",
+				"quality": "mid",
+				"texture": -1
 			},
 			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
+				"type": "work",
+				"income": 3,
+				"texture": 1
 			},
 			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
-			},
-			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
-			},
-			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
-			},
-			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
-			},
-			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
-			},
-			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
-			},
-			{
-				"type": "street",
-				"quality": "low",
-				"texture": 2
+				"type": "work",
+				"income": 3,
+				"texture": 1
 			}
 		],
 		[
 			{
-				"type": "work",
+				"type": "hobby",
+				"name": "tennis",
+				"texture": 8
+			},
+			{
+				"type": "street",
 				"quality": "high",
-				"texture": 0
+				"texture": -1
+			},
+			{
+				"type": "residence",
+				"quality": "high",
+				"texture": -1
 			},
 			{
 				"type": "work",
+				"income": 4
+				"texture": -1
+			},
+			{
+				"type": "street",
 				"quality": "high",
-				"texture": 0
+				"texture": -1
+			},
+			{
+				"type": "park",
+				"texture": -1
+			},
+			{
+				"type": "park",
+				"texture": -1 
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 10
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": -1
+			},
+			{
+				"type": "residence",
+				"quality": "mid",
+				"texture": -1
 			},
 			{
 				"type": "work",
-				"quality": "high",
-				"texture": 0
+				"income": 2,
+				"texture": 11
 			},
 			{
 				"type": "work",
+				"income": 3,
+				"texture": 1
+			}
+		],
+		[
+			{
+				"type": "residence",
+				"quality": "mid",
+				"texture": -1
+			},
+			{
+				"type": "street",
 				"quality": "high",
-				"texture": 0
+				"texture": -1
+			},
+			{
+				"type": "hobby",
+				"name": "tennis"
+				"texture": 8
+			},
+			{
+				"type": "hobby",
+				"name": "acard"
+				"texture": -1
+			},
+			{
+				"type": "residence",
+				"quality": "mid",
+				"texture": -1
+			},
+			{
+				"type": "street",
+				"quality": "high",
+				"texture": -1
 			},
 			{
 				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
-			},
-			{
-				"type": "work",
-				"quality": "high",
-				"texture": 0
+				"income": 4,
+				"texture": -1
 			},
 			{
 				"type": "work",
