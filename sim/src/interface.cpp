@@ -68,7 +68,7 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 
 	std::vector<Game::Map::Tile> tiles;
 	Game::Map map(width, height, tiles);
-	world->Init(map);
+	world->Init(std::move(map));
 
 	godot_variant ret;
 	

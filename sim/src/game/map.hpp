@@ -25,6 +25,7 @@ namespace Game {
 			Type type;
 		};
 
+		Map() = default;
 		Map(int width, int height, std::vector<Tile> tiles);
 
 		const Tile& Get(Math::Vec2I _index) const;
