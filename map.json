@@ -1,0 +1,354 @@
+{
+	"width": 11,
+	"height": 6,
+	"texture": [
+		"work",
+		"residence",
+		"street",
+		"bank"
+	],
+	"tiles": [
+		[
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			}
+		],
+		[
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			}
+		],
+		[
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			},
+			{
+				"type": "street",
+				"quality": "low",
+				"texture": 2
+			}
+		],
+		[
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			},
+			{
+				"type": "work",
+				"quality": "high",
+				"texture": 0
+			}
+		],
+		[
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			}
+		],
+		[
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			},
+			{
+				"type": "residence",
+				"quality": "poor",
+				"texture": 1
+			}
+		]
+	]
+}

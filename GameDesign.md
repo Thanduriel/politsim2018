@@ -2,6 +2,15 @@
 * Tile Size 160 * 160
 * Map Size 12 * 6
 
+### MapData
+{
+	width: int
+	heigt: int
+	fieds: [
+		{
+	]
+}
+
 ## Menschen
 
 ### Eigenschaften
