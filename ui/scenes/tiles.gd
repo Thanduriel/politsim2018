@@ -17,7 +17,6 @@ func get_texture_by_id(id):
 
 func _ready():
 	global.initialise()
-	global.politsim = global.libpolitsim.new()
 	var map = global.map
 	tile_set.clear()
 	for t in range(map.texture.size()):

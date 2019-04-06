@@ -3,7 +3,7 @@ extends Node
 const libpolitsim = preload("res://lib/politsim.gdns")
 
 var map
-var politsim
+var World
 
 var initialised = false
 
@@ -19,6 +19,6 @@ func _ready():
 	
 func initialise():
 	if not initialised:
-		politsim = libpolitsim.new()
-		politsim.init(map)
+		World = libpolitsim.new()
+		World.init(map)
 		initialised = true
