@@ -17,12 +17,18 @@ namespace Game {
 		{
 			enum struct Type
 			{
-				Default
-			};
-
-			std::string name;
-			bool isWalkable;
-			Type type;
+				Residence, Street, Work, Hobby
+			} Type;
+			union Info
+			{
+				enum struct Hobby {
+					Skate, Theater, Acard, Tennis
+				};
+				enum struct Quality {
+					High, Mid, Low, Poor
+				};
+				int income;
+			} info;
 		};
 
 		Map() = default;
