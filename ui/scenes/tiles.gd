@@ -21,6 +21,10 @@ func _ready():
 		tile_set.create_tile(t)
 		tile_set.tile_set_texture(t, get_texture_by_id(t))
 	
+	var screen_width = get_viewport_rect().size.x
+	var scale_factor = screen_width / (cell_size.x * map.width)
+	scale *= scale_factor
+	
 	for x in range(map.width):
 		for y in range(map.height):
 			set_cell(x, y, map.tiles[y][x].texture)
