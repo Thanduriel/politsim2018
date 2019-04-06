@@ -23,7 +23,13 @@
 		"strasse_ws",
 		"residence_high",
 		"dienstleister",
-		"theater"
+		"theater",
+		"slums",
+		"bundestagl",
+		"bundestagr",
+		"bank",
+		"platzl",
+		"platzr"
 	],
 	"tiles": [
 		[
@@ -55,12 +61,12 @@
 			{
 				"type": "work",
 				"income": 6,
-				"texture": -1
+				"texture": 25
 			},
 			{
 				"type": "work",
 				"income": 6,
-				"texture": -1
+				"texture": 25
 			},
 			{
 				"type": "work",
@@ -116,11 +122,11 @@
 			},
 			{
 				"type": "goverment",
-				"texture": -1
+				"texture": 23
 			},
 			{
 				"type": "goverment",
-				"texture": -1
+				"texture": 24
 			},
 			{
 				"type": "police",
@@ -175,11 +181,11 @@
 			},
 			{
 				"type": "park",
-				"texture": -1
+				"texture": 26
 			},
 			{
 				"type": "park",
-				"texture": -1 
+				"texture": 27
 			},
 			{
 				"type": "street",
@@ -308,7 +314,7 @@
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": -1
+				"texture": 22
 			},
 			{
 				"type": "hobby",
@@ -365,22 +371,22 @@
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": -1
+				"texture": 22
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": -1
+				"texture": 22
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": -1
+				"texture": 22
 			},
 			{
 				"type": "residence",
 				"quality": "poor",
-				"texture": -1
+				"texture": 22
 			},
 			{
 				"type": "work",
