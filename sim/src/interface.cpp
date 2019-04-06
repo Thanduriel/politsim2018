@@ -63,8 +63,12 @@ GDCALLINGCONV void *world_constructor(godot_object *p_instance, void *p_method_d
 godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) {
 	Game::World *world = static_cast<Game::World*>(p_user_data);
 
-	godot_dictionary map_data = godot_variant_as_dictionary(*p_args);
+	godot_dictionary map_data = api->godot_variant_as_dictionary(*p_args);
 	int width = 1, height = 1;
+
+	godot_string s;
+	api->godot_string_format(&s, *p_args);
+	api->godot_print(&s);
 
 	std::vector<Game::Map::Tile> tiles;
 	Game::Map map(width, height, tiles);
