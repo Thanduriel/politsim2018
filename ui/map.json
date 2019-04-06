@@ -8,39 +8,48 @@
 		"kurve_so",
 		"kurve_wn",
 		"kurve_ws",
-		"polic_station",
-		"skat_park",
+		"police_station",
+		"skate_park",
 		"tennis",
 		"weg_ns",
 		"weg_wo",
-		"industrie"
+		"industrie",
+		"weggabelung",
+		"strasse_no",
+		"strasse_ns",
+		"strasse_so",
+		"strasse_wn",
+		"strasse_wo",
+		"strasse_ws",
+		"residence_high",
+		"dienstleister"
 	],
 	"tiles": [
 		[
 			{
 				"type": "residence",
 				"quality": "high",
-				"texture": 	-1
+				"texture": 	19
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 15
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 17
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 17
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 18
 			},
 			{
 				"type": "work",
@@ -55,7 +64,7 @@
 			{
 				"type": "work",
 				"income": 4,
-				"texture": -1
+				"texture": 20
 			},
 			{
 				"type": "street",
@@ -82,12 +91,12 @@
 			{
 				"type": "residence",
 				"quality": "high",
-				"texture": -1
+				"texture": 19
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 14
 			},
 			{
 				"type": "hobby",
@@ -97,12 +106,12 @@
 			{
 				"type": "residence",
 				"quality": "high",
-				"texture": -1
+				"texture": 19
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 14
 			},
 			{
 				"type": "goverment",
@@ -146,22 +155,22 @@
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 14
 			},
 			{
 				"type": "residence",
 				"quality": "high",
-				"texture": -1
+				"texture": 19
 			},
 			{
 				"type": "work",
 				"income": 4,
-				"texture": -1
+				"texture": 20
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 13
 			},
 			{
 				"type": "park",
@@ -179,7 +188,7 @@
 			{
 				"type": "street",
 				"quality": "low",
-				"texture": -1
+				"texture": 12
 			},
 			{
 				"type": "residence",
@@ -206,7 +215,7 @@
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 14
 			},
 			{
 				"type": "hobby",
@@ -226,12 +235,12 @@
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 14
 			},
 			{
 				"type": "work",
 				"income": 4,
-				"texture": -1
+				"texture": 20
 			},
 			{
 				"type": "residence",
@@ -268,27 +277,27 @@
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 13
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 17
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 17
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 17
 			},
 			{
 				"type": "street",
 				"quality": "high",
-				"texture": -1
+				"texture": 16
 			},
 			{
 				"type": "hobby",
@@ -335,7 +344,7 @@
 			{
 				"type": "work",
 				"income": 4,
-				"texture": -1
+				"texture": 20
 			},
 			{
 				"type": "residence",
@@ -375,12 +384,12 @@
 			{
 				"type": "work",
 				"income": 1,
-				"texture": -1
+				"texture": 0
 			},
 			{
 				"type": "work",
 				"income": 1,
-				"texture": -1
+				"texture": 0
 			}
 		]
 	]
