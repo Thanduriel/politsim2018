@@ -26,7 +26,7 @@ namespace Game {
 		};
 
 		// load from json
-		Map(std::string_view _file);
+		Map();
 
 		const Tile& Get(Math::Vec2I _index) const;
 		bool IsInside(Math::Vec2I _index) const;

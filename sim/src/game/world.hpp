@@ -10,7 +10,8 @@ namespace Game {
 	class World
 	{
 	public:
-		World(std::string_view _mapFile, float _timeFactor, int _numActors);
+		World();
+		void Init(Map&& _map);
 
 		void Update(float _deltaTime);
 
@@ -19,6 +20,8 @@ namespace Game {
 		Math::Vec2I PositionToIndex(Math::Vec2 _position) const;
 		// gives position of a tile's center
 		Math::Vec2 IndexToPosition(Math::Vec2I _index) const;
+
+		Actor GenerateActor();
 
 		float m_time;
 		float m_timeFactor;

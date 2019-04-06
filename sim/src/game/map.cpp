@@ -6,7 +6,7 @@ namespace Game {
 
 	using namespace Math;
 
-	Map::Map(std::string_view _file)
+	Map::Map()
 		: m_size(16, 16),
 		m_tiles(m_size.x * m_size.y, Tile{"foo", true, Tile::Type::Default}),
 		m_flags(m_tiles.size())

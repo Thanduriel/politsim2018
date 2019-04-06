@@ -6,28 +6,26 @@ namespace Game {
 
 	using namespace Math;
 
-	World::World(std::string_view _mapFile, float _timeFactor, int _numActors)
+	World::World()
 		: m_time(0),
-		m_timeFactor(_timeFactor),
 		m_day(0),
 		m_randomGenerator(Utils::RandomSeed()),
-		m_map(_mapFile),
 		m_tileSize(0.25)
 	{
-		m_actors.reserve(_numActors);
-		auto RandVec = [this]()
-		{
-			return Math::Vec2I(m_randomGenerator.Uniform(0u, 15u), m_randomGenerator.Uniform(0u, 15u));
-		};
-		for (int i = 0; i < _numActors; ++i)
-		{
-			Actor actor{};
-			actor.activityLocations = { RandVec(), RandVec(), RandVec() };
-			actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
-			actor.wakeUpTime = m_randomGenerator.Uniform(0.f, 1.f);
-			actor.currentActivity = Activity::Home;
+		
+	}
 
-			m_actors.push_back(actor);
+	void World::Init(Map&& _map)
+	{
+		m_map = std::move(_map);
+		m_timeFactor = 1.f / 60.f;
+		const int numActors = 512;
+
+		m_actors.reserve(numActors);
+
+		for (int i = 0; i < numActors; ++i)
+		{
+			m_actors.push_back(GenerateActor());
 		}
 	}
 
@@ -74,5 +72,21 @@ namespace Game {
 	Vec2 World::IndexToPosition(Vec2I _index) const
 	{
 		return Vec2(_index) * m_tileSize + Vec2(m_tileSize) * 0.5f;
+	}
+
+	Actor World::GenerateActor()
+	{
+		auto RandVec = [this]()
+		{
+			return Math::Vec2I(m_randomGenerator.Uniform(0u, 15u), m_randomGenerator.Uniform(0u, 15u));
+		};
+
+		Actor actor{};
+		actor.activityLocations = { RandVec(), RandVec(), RandVec() };
+		actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
+		actor.wakeUpTime = m_randomGenerator.Uniform(4.f/24.f, 1.f);
+		actor.currentActivity = Activity::Home;
+
+		return actor;
 	}
 }
