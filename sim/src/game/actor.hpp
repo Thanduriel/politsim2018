@@ -26,6 +26,7 @@ namespace Game {
 	
 		// current state
 		Math::Vec2 position;
+		Math::Vec2 positionNoise;
 		Activity currentActivity;
 		Path currentPath;
 		float politic, activity, satisfaction, health;
