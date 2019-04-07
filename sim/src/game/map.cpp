@@ -1,8 +1,10 @@
 #include "map.hpp"
 #include "utils/random.hpp"
+#include "actor.hpp"
 #include <limits>
 #include <iostream>
 #include <queue>
+#include <algorithm>
 
 namespace Game {
 
@@ -24,7 +26,7 @@ namespace Game {
 
 	const Map::Tile& Map::Get(Math::Vec2I _index) const
 	{
-		return m_tiles[_index.x + _index.y * m_size.y];
+		return m_tiles[_index.x + _index.y * m_size.x];
 	}
 
 	bool Map::IsInside(Math::Vec2I _index) const
@@ -43,19 +45,18 @@ namespace Game {
 		{
 			return m_flags[GetIndex(_lhs)].distance > m_flags[GetIndex(_rhs)].distance;
 		};
-		int i = 0;
 		std::priority_queue<Vec2I, std::vector<Vec2I>, decltype(cmp)> queue(cmp);
 		auto AddOption = [&](Vec2I _index, Direction _dir, int _dist)
 		{
-			++i;
 			if (!IsInside(_index)) return;
 
 			const int index = GetIndex(_index);
 			const Tile& tile = m_tiles[index];
-			const Tile::Type typeBegin = Get(_begin).type;
-			const Tile::Type typeEnd = Get(_end).type;
+			const Tile tileBegin = Get(_begin);
+			const Tile tileEnd = Get(_end);
 			if ((tile.type == Tile::Type::Street 
-				|| tile.type == typeBegin || tile.type == typeEnd)
+				|| (tile.type == tileBegin.type && tile.info.income == tileBegin.info.income) 
+				|| (tile.type == tileEnd.type && tile.info.income == tileEnd.info.income))
 				&& _dist < m_flags[index].distance)
 			{
 				m_flags[index].distance = _dist;
@@ -104,5 +105,37 @@ namespace Game {
 		}
 
 		return path;
+	}
+
+	PopulationPlaces Map::GetPlaces(const PopulationClass& _class) const
+	{
+		PopulationPlaces places;
+
+		for (int y = 0; y < m_size.y; ++y)
+		{
+			for (int x = 0; x < m_size.x; ++x)
+			{
+				const Vec2I pos = Vec2I(x, y);
+				const Tile& tile = Get(pos);
+				switch (tile.type)
+				{
+				case Tile::Type::Residence:
+					if (tile.info.quality == _class.home)
+						places.home.push_back(pos);
+					break;
+				case Tile::Type::Hobby:
+					std::cout << "hobby:" << (int)tile.info.hobby << "\n";
+					if (std::find(_class.hobbies.begin(), _class.hobbies.end(), tile.info.hobby) != _class.hobbies.end())
+						places.hobby.push_back(pos);
+					break;
+				case Tile::Type::Work:
+					if (std::find(_class.income.begin(), _class.income.end(), tile.info.income) != _class.income.end())
+						places.work.push_back(pos);
+					break;
+				}
+			}
+		}
+
+		return places;
 	}
 }

@@ -38,7 +38,7 @@ namespace Game {
 		// gives position of a tile's center
 		Math::Vec2 IndexToPosition(Math::Vec2I _index) const;
 
-		Actor GenerateActor();
+		Actor GenerateActor(const PopulationPlaces& _places);
 
 		float m_time;
 		float m_timeFactor;

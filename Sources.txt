@@ -1,19 +1,31 @@
-# CC BY
+# CC BY           (https://creativecommons.org/licenses/by/3.0/)
 1.	[coin.png](https://opengameart.org/content/spinning-pixel-coin-0),
 **[irmirx](htps://opengameart.org/users/irmirx)** 
-2. [Crowd Boo And Heckles Sound] (http://soundbible.com/654-Crowd-Boo-And-Heckles.html)
-**Mike Koenig 
+2. [Crowd Boo And Heckles Sound] (found at http://soundbible.com/654-Crowd-Boo-And-Heckles.html)
+** by Mike Koenig 
 extended and combined into Protest.wav
+3. [Ambience, London Street, A.wav] (found at https://freesound.org/people/InspectorJ/sounds/398159/)
+** by InspectorJ (www.jshaw.co.uk) 
+shortened
+4. [Prague (city center sounds) » Prague, Staro Mesto, City Center part.5] (https://freesound.org/people/vonfleisch/sounds/212032/)
+** by vonfleisch (https://freesound.org/people/vonfleisch/)
 
-# CC BY-NC 3.0 
-1. [15 Thousand People Sound] (http://soundbible.com/1767-15-Thousand-People.html),
-**Stephan Schutze
+# CC BY-NC 3.0    (https://creativecommons.org/licenses/by-nc/3.0/)
+1. [15 Thousand People Sound] (found at http://soundbible.com/1767-15-Thousand-People.html),
+**by Stephan Schutze
 shortened and combined into Protest.wav
+2. [City street] (found at https://freesound.org/people/urupin/sounds/92032/)
+** by urupin (https://freesound.org/people/urupin/)
+shortened
 
 
 1. [amphiethatre](https://unsplash.com/photos/ja8w8lfXo2c)
 **[Lucas Miguel](https://unsplash.com/@lucasmiguel)**
 
-#Additionally
-1. [Riot Angry Mob Sound Effect] (https://www.youtube.com/watch?v=lHhx8Qp_l6Q)
-**Audio Productions (https://www.youtube.com/user/JustAudio2008/featured)
+#Also
+1. [Riot Angry Mob Sound Effect] (found at https://www.youtube.com/watch?v=lHhx8Qp_l6Q)
+**by Audio Productions (https://www.youtube.com/user/JustAudio2008/featured)
+2. [City ambience » Piccadilly_Circus_Ambience.WAV ] (https://freesound.org/people/habbis92/sounds/240233/)
+** by habbis92 (https://freesound.org/people/habbis92/)
+License: CC 0 (https://creativecommons.org/publicdomain/zero/1.0/)
+changed

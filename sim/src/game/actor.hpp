@@ -30,4 +30,18 @@ namespace Game {
 		Path currentPath;
 	};
 
+	struct PopulationClass
+	{
+		Map::Tile::Info::Quality home;
+		std::vector<int> income;
+		std::vector<Map::Tile::Info::Hobby> hobbies;
+	};
+
+	const extern PopulationClass LOWER_CLASS;
+	const extern PopulationClass MIDDLE_CLASS;
+	const extern PopulationClass UPPER_CLASS;
+
+	constexpr float LOWER_CLASS_RATIO = 0.25f;
+	constexpr float MIDDLE_CLASS_RATIO = 0.6f;
+	constexpr float UPPER_CLASS_RATIO = 0.15f;
 }
