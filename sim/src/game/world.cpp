@@ -126,13 +126,19 @@ namespace Game {
 		std::sort(m_actorsOnStreet.begin(), m_actorsOnStreet.end(), Game::ActorUpdate::SortedAxisCompare);
 		std::sort(m_actorsInBuilding.begin(), m_actorsInBuilding.end(), Game::ActorUpdate::TileSortCompare);
 
+		float activity;
 		for (auto itr1 = m_actorsOnStreet.begin(); itr1 != m_actorsOnStreet.end(); ++itr1) {
+			activity = ((*itr1)->politic - 0.5f) * (*itr1)->activity;
 			for (auto itr2 = itr1 + 1;
 				itr2 != m_actorsOnStreet.end() 
 				&& (*itr1)->position.x + Game::ActorUpdate::InteractionDisSqr < (*itr2)->position.x;
 				++itr2) {
 				if (((*itr1)->position - (*itr2)->position).LenSqr() <= Game::ActorUpdate::InteractionDisSqr)
+					activity += ((*itr2)->politic - 0.5f) * (*itr2)->activity;
 					Interaction(**itr1, **itr2, _deltaTime);
+			}
+			if (activity > 1.f || activity < -1.f) {
+				m_events.push_back(std::unique_ptr<Events::Demo>(new Events::Demo(0.2f, 0.25f, (activity > 0.f ? false : true), (*itr1)->position)));
 			}
 		}
 		for (auto itr1 = m_actorsInBuilding.begin(); itr1 != m_actorsInBuilding.end(); ++itr1) {
@@ -263,6 +269,7 @@ void Game::World::Interaction(Actor& act1, Actor& act2, float dTime) {
 	}
 }
 void Game::World::UpdateActor(Actor& act, float dTime) {
+	act.stunned = false;
 	// unzufriedenheit -> activ
 	act.activity = capAdd(act.activity, (.7f - act.satisfaction) * 0.1f * dTime);
 	// hoppy -> zufrieden
