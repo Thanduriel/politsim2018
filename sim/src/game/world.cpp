@@ -16,7 +16,7 @@ namespace Game {
 		m_randomGenerator(Utils::RandomSeed()),
 		m_tileSize(0.25),
 		m_money(1337),
-		m_politicBar(0.3f) { }
+		m_politicBar(0.5f) { }
 
 	void World::Init(Map&& _map)
 	{
@@ -50,7 +50,19 @@ namespace Game {
 		{
 			++m_day;
 			m_time -= 1.f;
-		//	std::cout << "new day " << m_day << "\n";
+
+			// re-evaluate politicbar
+			double pol;
+			double dominantParty = m_politicBar > 0.5 ? 1.0 : 0.0;
+
+			for (Actor& actor : m_actors) {
+				if (actor.politic <= 0.35) { /* pol += 0; */ }
+				else if (actor.politic >= 0.65) pol += 1;
+				else if (actor.satisfaction >= 0.5) pol += dominantParty;
+				else pol += (1 - dominantParty);
+			
+			}
+			m_politicBar = pol / m_actors.size();
 		}
 		m_actorsInBuilding.resize(0);
 		m_actorsOnStreet.resize(0);
