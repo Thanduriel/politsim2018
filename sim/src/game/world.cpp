@@ -6,6 +6,14 @@
 
 namespace Game {
 
+	template<typename T>
+	T capAdd(T value, T diff, T max = 1, T min = 0) {
+		T res = value + diff;
+		if (res > max) res = max;
+		else if (res < min) res = min;
+		return res;
+	}
+
 	using namespace Math;
 
 	constexpr float MOVEMENT_SPEED = 0.4f;
@@ -145,6 +153,12 @@ namespace Game {
 				break;
 			}
 
+		std::normal_distribution<float> d{ 0.8, 0.1 };
+		actor.health = (pow(m_map.Get(actor.activityLocations[Activity::Work]).info.income, 2) / pow(6, 2)) *d(m_randomGenerator);
+		actor.politic = m_randomGenerator.Uniform(0.f, 1.f);
+		actor.satisfaction = d(m_randomGenerator) - capAdd<float>(actor.health, -pow(actor.politic - 0.5, 2));
+		actor.activity = (1.f - actor.satisfaction) * (actor.politic - .5f) * actor.health * d(m_randomGenerator);
+
 		return actor;
 	}
 
@@ -171,19 +185,21 @@ bool Game::ActorUpdate::TileSortCompare(const Actor* ac1, const Actor* ac2) {
 		< calcId(ac2->activityLocations[ac2->currentActivity]));
 }
 
-template<typename T>
-T capAdd(T value, T diff, T max = 1, T min = 0) {
-	T res = value + diff;
-	if (res > max) res = max;
-	else if (res < min) res = min;
-	return res;
-}
 void Game::World::Interaction(Actor& act1, Actor& act2, float dTime) {
 	// ähliche meinung
+	float mean = (act1.politic + act2.politic) / 2;
 	if (abs(act1.politic - act2.politic) <= 0.4f) {
-		float mean = (act1.politic + act2.politic) / 2;
-		// act1.politic = capAdd(act1.politic, );
+		act1.politic = capAdd(act1.politic, (mean - act1.politic) / 7 * dTime);
+		act2.politic = capAdd(act2.politic, (mean - act2.politic) / 7 * dTime);
+	} else {
+		act1.politic = capAdd(act1.politic, (act1.politic - mean) / 7 * dTime);
+		act2.politic = capAdd(act2.politic, (act2.politic - mean) / 7 * dTime);
+		act1.activity = capAdd(act1.activity, abs(act1.politic - mean) * dTime);
+		act2.activity = capAdd(act2.activity, abs(act2.politic - mean) * dTime);
 	}
+	mean = (act1.satisfaction + act2.satisfaction) / 2;
+	act1.satisfaction = capAdd(act1.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
+	act2.satisfaction = capAdd(act2.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
 }
 void Game::World::UpdateActor(Actor& act, float dTime) {
 	int income = m_map.Get(act.activityLocations[Activity::Work]).info.income;
