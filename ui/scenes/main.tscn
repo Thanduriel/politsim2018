@@ -11,7 +11,7 @@
 [ext_resource path="res://assets/audio/398159__inspectorj__ambience-london-street-a_shorter.ogg" type="AudioStream" id=9]
 [ext_resource path="res://assets/audio/240233__habbis92__piccadilly-circus-ambience_adjusted.ogg" type="AudioStream" id=10]
 [ext_resource path="res://assets/audio/220210__gameaudio__bonk-click-w-deny-feel.wav" type="AudioStream" id=11]
-[ext_resource path="res://assets/audio/Protest_short.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/audio/Protest_short2.wav" type="AudioStream" id=12]
 [ext_resource path="res://assets/audio/Obama State Of The Union 2010-SoundBible.com-1976559822.wav" type="AudioStream" id=13]
 
 [sub_resource type="ShaderMaterial" id=1]
