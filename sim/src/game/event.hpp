@@ -33,5 +33,19 @@ namespace Game {
 		private:
 			float m_influence;
 		};
+
+		struct Flier : public Event
+		{
+			Flier(float _duration, float _range, float _influence, Math::Vec2 _position)
+				: Event(_duration, _range, _position),
+				m_influence(_influence)
+			{}
+
+			virtual void operator() (Actor& _actor, float _deltaTime) const override;
+
+		private:
+			float m_influence;
+		};
+
 	}
 }

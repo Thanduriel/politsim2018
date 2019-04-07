@@ -218,10 +218,12 @@ godot_variant world_action(godot_object *p_instance, void *p_method_data, void *
 	godot_vector2 index = api->godot_variant_as_vector2(p_args[1]);
 	Math::Vec2 index_v(api->godot_vector2_get_x(&index), api->godot_vector2_get_y(&index));
 
-	godot_string s_speech = gs_str("speech");
+	godot_string s_speech = gs_str("speech"), s_flier = gs_str("flier");
 
 	if (g_s_eq(&type, &s_speech)) {
 		world.AddEvent(std::unique_ptr<Game::Event>(new Game::Events::Speech(0.03, 0.3, 3.4, index_v)));
+	} else if (g_s_eq(&type, &s_flier)) {
+		world.AddEvent(std::unique_ptr<Game::Event>(new Game::Events::Flier(0.03, 0.3, 3.4, index_v)));
 	}
 
 	godot_variant ret{};
