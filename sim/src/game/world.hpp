@@ -21,8 +21,10 @@ namespace Game {
 		std::vector<const Actor*>&& GetNear(const Math::Vec2& _position, float _maxDis) const;
 
 		int GetMoney() const { return m_money; }
-
 		float GetPoliticBar() const { return m_politicBar; }
+
+		float GetDay() const { return m_day; }
+		float GetTime() const { return m_time; }
 	private:
 		Math::Vec2I PositionToIndex(Math::Vec2 _position) const;
 		// gives position of a tile's center

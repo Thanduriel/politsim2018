@@ -165,6 +165,20 @@ godot_variant world_get_actors(godot_object *p_instance, void *p_method_data, vo
 	return ret;
 }
 
+godot_variant world_get_day(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) {
+	Game::World& world = *static_cast<Game::World*>(p_user_data);
+	godot_variant ret;
+	api->godot_variant_new_real(&ret, world.GetDay());
+	return ret;
+}
+
+godot_variant world_get_time(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) {
+	Game::World& world = *static_cast<Game::World*>(p_user_data);
+	godot_variant ret;
+	api->godot_variant_new_real(&ret, world.GetTime());
+	return ret;
+}
+
 godot_variant world_update(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) 
 {
 	Game::World& world = *static_cast<Game::World*>(p_user_data);
@@ -206,6 +220,8 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 	register_function(p_handle, "World_Test", &World_Test);
 	register_function(p_handle, "init", world_init);
 	register_function(p_handle, "get_actor_positions", world_get_actors);
+	register_function(p_handle, "get_time", world_get_time);
+	register_function(p_handle, "get_day", world_get_day);
 	register_function(p_handle, "update", world_update);
 }
 
