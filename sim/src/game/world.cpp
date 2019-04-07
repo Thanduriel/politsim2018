@@ -2,6 +2,7 @@
 #include "utils/time.hpp"
 #include <cassert>
 #include <iostream>
+#include <random>
 
 namespace Game {
 
@@ -49,7 +50,7 @@ namespace Game {
 		{
 			++m_day;
 			m_time -= 1.f;
-			std::cout << "new day " << m_day << "\n";
+		//	std::cout << "new day " << m_day << "\n";
 		}
 		m_actorsInBuilding.resize(0);
 		m_actorsOnStreet.resize(0);
@@ -69,9 +70,9 @@ namespace Game {
 			}
 			// switch activity
 			else if(Activity next = static_cast<Activity>((actor.currentActivity + 1) % ACTIVITY_COUNT); 
-				m_time > Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next]) )
+				std::abs(m_time - Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next])) < 0.1f / 24.f)
 			{
-				std::cout << "switching to activity " << next << " at time " << m_time << "\n";
+			//	std::cout << "switching to activity " << next << " at time " << m_time << "\n";
 				actor.currentActivity = next;
 				const Vec2I curInd = PositionToIndex(actor.position);
 				actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
@@ -123,19 +124,21 @@ namespace Game {
 		{
 			return _elements[m_randomGenerator.Uniform(0u, (unsigned)_elements.size()-1)];
 		};
+		std::normal_distribution<float> daySchedule(6.5f / 24.f, 2.5f / 24.f);
+		std::normal_distribution<float> nightSchedule(21.f / 24.f, 2.5f / 24.f);
 
 		Actor actor{};
 		actor.activityLocations = { RandVec(_places.work), RandVec(_places.hobby), RandVec(_places.home) };
 		actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
 		actor.wakeUpTime = m_randomGenerator.Uniform(0u, 10u) > 1u ?
-			m_randomGenerator.Normal(0.5f / 24.f) + 7.f / 24.f
-			: m_randomGenerator.Normal(0.5f / 24.f) + 22.f / 24.f;
+			daySchedule(m_randomGenerator)
+			: nightSchedule(m_randomGenerator);
 		actor.wakeUpTime = Utils::TimeOfDay(actor.wakeUpTime);
 
 		// determine current activity
 		float timeDif = m_time - actor.wakeUpTime;
 		if (timeDif < 0) timeDif += 1.f;
-		for(int i = 0; i >= 0; ++i)
+		for(int i = 2; i >= 0; --i)
 			if (timeDif > TIME_TABLE[i])
 			{
 				actor.currentActivity = static_cast<Activity>(i);

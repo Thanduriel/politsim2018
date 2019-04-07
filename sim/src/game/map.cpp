@@ -124,7 +124,6 @@ namespace Game {
 						places.home.push_back(pos);
 					break;
 				case Tile::Type::Hobby:
-					std::cout << "hobby:" << (int)tile.info.hobby << "\n";
 					if (std::find(_class.hobbies.begin(), _class.hobbies.end(), tile.info.hobby) != _class.hobbies.end())
 						places.hobby.push_back(pos);
 					break;
