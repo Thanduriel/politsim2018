@@ -23,7 +23,7 @@ namespace Game {
 		m_day(0),
 		m_randomGenerator(Utils::RandomSeed()),
 		m_tileSize(0.25),
-		m_money(1337),
+		m_money(100),
 		m_politicBar(0.5f) { }
 
 	void World::Init(Map&& _map)
@@ -71,6 +71,7 @@ namespace Game {
 			
 			}
 			m_politicBar = pol / m_actors.size();
+			m_money += m_politicBar * 128 + 1;
 		}
 		m_actorsInBuilding.resize(0);
 		m_actorsOnStreet.resize(0);
