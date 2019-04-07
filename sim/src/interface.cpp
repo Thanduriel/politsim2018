@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fstream>
+#include <memory>
 #include "game/world.hpp"
 
 extern "C" {
@@ -210,6 +211,23 @@ godot_variant world_update(godot_object *p_instance, void *p_method_data, void *
 	return ret;
 }
 
+godot_variant world_action(godot_object *p_instance, void *p_method_data, void *p_user_data, int p_num_args, godot_variant **p_args) {
+	Game::World& world = *static_cast<Game::World*>(p_user_data);
+
+	godot_string type = api->godot_variant_as_string(p_args[0]);
+	godot_vector2 index = api->godot_variant_as_vector2(p_args[1]);
+	Math::Vec2 index_v(api->godot_vector2_get_x(&index), api->godot_vector2_get_y(&index));
+
+	godot_string s_speech = gs_str("speech");
+
+	if (g_s_eq(&type, &s_speech)) {
+		world.AddEvent(std::unique_ptr<Game::Event>(new Game::Events::Speech(0.03, 0.3, 3.4, index_v)));
+	}
+
+	godot_variant ret{};
+	return ret;
+}
+
 GDCALLINGCONV void simple_destructor(godot_object *p_instance, void *p_method_data, void *p_user_data) {
 	printf("SIMPLE._byebye()\n");
 	api->godot_free(p_user_data);
@@ -246,6 +264,7 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 	register_function(p_handle, "get_politic", world_get_politic);
 	register_function(p_handle, "get_day", world_get_day);
 	register_function(p_handle, "update", world_update);
+	register_function(p_handle, "action", world_action);
 }
 
 }

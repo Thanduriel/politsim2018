@@ -6,6 +6,7 @@
 #include "event.hpp"
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 namespace Game {
 	namespace ActorUpdate {
@@ -31,6 +32,8 @@ namespace Game {
 
 		int GetDay() const { return m_day; }
 		float GetTime() const { return m_time; }
+
+		void AddEvent(std::unique_ptr<Event> event) { m_events.push_back(std::move(event)); }
 
 	private:
 		void Interaction(Actor& act1, Actor& act2, float dTime);
