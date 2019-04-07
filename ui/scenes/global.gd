@@ -4,6 +4,8 @@ const libpolitsim = preload("res://lib/politsim.gdns")
 
 var map
 var World
+export var money = 42
+export var politic = 0.3
 
 var initialised = false
 
