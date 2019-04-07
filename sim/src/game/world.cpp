@@ -10,7 +10,9 @@ namespace Game {
 		: m_time(0),
 		m_day(0),
 		m_randomGenerator(Utils::RandomSeed()),
-		m_tileSize(0.25) { }
+		m_tileSize(0.25),
+		?_money(1337),
+		m_politicBar(0.3f) { }
 
 	void World::Init(Map&& _map)
 	{
@@ -99,5 +101,15 @@ namespace Game {
 			}
 
 		return actor;
+	}
+
+	std::vector<const Actor*>&& Game::World::GetNear(const Math::Vec2& _position, float _maxDis) const {
+		float _maxDisSq = _maxDis * _maxDis;
+		std::vector<const Actor*> res(0);
+		for (const Actor& a : m_actors) {
+			if ((a.position - _position).LenSqr() <= _maxDisSq)
+				res.push_back(&a);
+		}
+		return std::move(res);
 	}
 }
