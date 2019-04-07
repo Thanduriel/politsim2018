@@ -29,6 +29,9 @@ cell_size = Vector2( 160, 160 )
 format = 1
 script = ExtResource( 3 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="tiles"]
+layer = 2
+
 [node name="cursor" type="TextureRect" parent="."]
 margin_left = 2.58667
 margin_top = 515.7

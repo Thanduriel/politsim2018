@@ -2,6 +2,7 @@ extends TileMap
 
 onready var global = get_node("/root/global")
 onready var cursor = get_node("/root/main/cursor")
+onready var canvaslayer = $"./CanvasLayer"
 
 const tiles_path = "res://assets/tiles/%s"
 
@@ -68,7 +69,7 @@ func _ready():
 		for y in range(map.height):
 			set_cell(x, y, map.tiles[y][x].texture)
 
-var hover_tile = Vector2(0,0)
+var hover_tile = Vector2(0, 0)
 var time = 0
 export var hover_time = 1
 var label = null
@@ -92,10 +93,10 @@ func show_name(tile):
 				info = global.map.tiles[tile.y][tile.x].get("income")
 				if info:
 					label.text += "\nincome: " + str(info)
-		add_child(label)
-		var s = cell_size;
+		canvaslayer.add_child(label)
+		var s = cell_size * scale;
 		label.rect_position = Vector2(tile.x * s.x, tile.y * s.y)
-		var d = cell_size.x * global.map.width - (label.rect_position.x + label.rect_size.x)
+		var d = s.x * global.map.width - (label.rect_position.x + label.rect_size.x)
 		if d < 0:
 			label.rect_position.x += d
 
@@ -117,5 +118,3 @@ func _process(delta):
 		time = 0
 		hover_tile = tile
 		hide_name()
-		
-	pass
