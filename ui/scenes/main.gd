@@ -18,7 +18,7 @@ func _process(delta):
 	
 	if all_citizen.size() < pos.size():
 		var missing = pos.size() - all_citizen.size()
-		for _i in range(missing):
+		for i in range(missing):
 			var c = Sprite.new()
 			c.scale *= 0.3
 			c.set_texture(citizen_texture)
