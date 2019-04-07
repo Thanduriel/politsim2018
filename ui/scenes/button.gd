@@ -6,5 +6,5 @@ onready var cursor = get_node("/root/main/cursor")
 export var action_type = "test"
 
 func pressed():
-		tile_map.send_action(action_type)
-		cursor.set_texture($"./CenterContainer/TextureRect".get_texture())
+	tile_map.send_action(action_type)
+	cursor.set_texture($"./CenterContainer/TextureRect".get_texture())

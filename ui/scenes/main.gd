@@ -3,12 +3,15 @@ extends Node
 onready var global = get_node("/root/global")
 var citizen_texture = load("res://assets/citizen/citizen1.tres")
 
+onready var template = preload("res://scenes/citizen.tscn")
+
 var citizen = Node2D.new()
 
 func _ready():
 	global.initialise()
 	
 	add_child(citizen)
+	
 	
 func _process(delta):
 	var pos = global.World.get_actor_positions()
@@ -21,9 +24,8 @@ func _process(delta):
 	if all_citizen.size() < pos.size():
 		var missing = pos.size() - all_citizen.size()
 		for i in range(missing):
-			var c = Sprite.new()
+			var c = template.instance()
 			c.scale *= 0.3
-			c.set_texture(citizen_texture)
 			citizen.add_child(c)
 	
 	for i in range(all_citizen.size()):
