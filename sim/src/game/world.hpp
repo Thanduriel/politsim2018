@@ -9,7 +9,7 @@
 
 namespace Game {
 	namespace ActorUpdate {
-		constexpr float InteractionDisSqr = .25f;
+		constexpr float InteractionDisSqr = 0.125f;
 		bool SortedAxisCompare(const Actor* ac1, const Actor* ac2);
 		bool TileSortCompare(const Actor* ac1, const Actor* ac2);
 	}
