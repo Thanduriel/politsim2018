@@ -1,10 +1,13 @@
 #include "world.hpp"
 #include "utils/time.hpp"
+#include <cassert>
 #include <iostream>
 
 namespace Game {
 
 	using namespace Math;
+
+	constexpr float MOVEMENT_SPEED = 0.4f;
 
 	World::World()
 		: m_time(0),
@@ -18,19 +21,30 @@ namespace Game {
 	{
 		m_map = std::move(_map);
 		m_timeFactor = 1.f / 60.f;
-		const int numActors = 100;
-
+		const int numActors = 256;
+		const int numLowerClass = static_cast<int>(numActors * LOWER_CLASS_RATIO);
+		const int numMiddleClass = static_cast<int>(numActors * MIDDLE_CLASS_RATIO);
+		const int numUpperClass = static_cast<int>(numActors * UPPER_CLASS_RATIO);
 		m_actors.reserve(numActors);
-	//	std::cout << m_map.GetSize().x << " , " << m_map.GetSize().y << std::endl;
-		for (int i = 0; i < numActors; ++i)
-		{
-			m_actors.push_back(GenerateActor());
-		}
+
+		PopulationPlaces places;
+
+		places = m_map.GetPlaces(LOWER_CLASS);
+		for (int i = 0; i < numLowerClass; ++i)
+			m_actors.push_back(GenerateActor(places));
+
+		places = m_map.GetPlaces(MIDDLE_CLASS);
+		for (int i = 0; i < numMiddleClass; ++i)
+			m_actors.push_back(GenerateActor(places));
+
+		places = m_map.GetPlaces(UPPER_CLASS);
+		for (int i = 0; i < numUpperClass; ++i)
+			m_actors.push_back(GenerateActor(places));
 	}
 
 	void World::Update(float _deltaTime)
 	{
-		m_time += _deltaTime * m_timeFactor * 5.f;
+		m_time += _deltaTime * m_timeFactor;
 		if (m_time >= 1.f)
 		{
 			++m_day;
@@ -50,11 +64,11 @@ namespace Game {
 				const Vec2 dir = (targetPos - actor.position).Normalized();
 				const Vec2 noise = m_randomGenerator.Direction()* 0.2f;
 
-				actor.position += (dir + noise).Normalized() * _deltaTime;
+				actor.position += (dir + noise).Normalized() * _deltaTime * MOVEMENT_SPEED;
 			}
 			// switch activity
 			else if(Activity next = static_cast<Activity>((actor.currentActivity + 1) % ACTIVITY_COUNT); 
-				m_time > Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next] ))
+				m_time > Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next]) )
 			{
 				std::cout << "switching to activity " << next << " at time " << m_time << "\n";
 				actor.currentActivity = next;
@@ -74,16 +88,18 @@ namespace Game {
 		return Vec2(_index) * m_tileSize + Vec2(m_tileSize * 0.5f);
 	}
 
-	Actor World::GenerateActor()
+	Actor World::GenerateActor(const PopulationPlaces& _places)
 	{
-		auto RandVec = [this]()
+		assert(_places.hobby.size()); 
+		assert(_places.work.size());
+		assert(_places.home.size());
+		auto RandVec = [this](const std::vector<Vec2I>& _elements)
 		{
-			return Math::Vec2I(m_randomGenerator.Uniform(0u, m_map.GetSize().x - 1), 
-				m_randomGenerator.Uniform(0u, m_map.GetSize().y - 1));
+			return _elements[m_randomGenerator.Uniform(0u, (unsigned)_elements.size()-1)];
 		};
 
 		Actor actor{};
-		actor.activityLocations = { RandVec(), RandVec(), RandVec() };
+		actor.activityLocations = { RandVec(_places.work), RandVec(_places.hobby), RandVec(_places.home) };
 		actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
 		actor.wakeUpTime = m_randomGenerator.Uniform(0u, 10u) > 1u ?
 			m_randomGenerator.Normal(0.5f / 24.f) + 7.f / 24.f

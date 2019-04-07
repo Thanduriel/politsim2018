@@ -13,6 +13,6 @@ int main()
 	for (;;)
 	{
 		_sleep(16);
-		world.Update(0.01666666);
+		world.Update(0.01666666f);
 	}
 }

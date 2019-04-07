@@ -22,7 +22,7 @@ void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options) {
 	api = p_options->api_struct;
 
 	// now find our extensions
-	for (int i = 0; i < api->num_extensions; i++) {
+	for (unsigned i = 0; i < api->num_extensions; i++) {
 		switch (api->extensions[i]->type) {
 			case GDNATIVE_EXT_NATIVESCRIPT: {
 				nativescript_api = (godot_gdnative_ext_nativescript_api_struct *)api->extensions[i];
@@ -91,11 +91,11 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 
 	godot_variant s_width = gv_str("width");
 	godot_variant width_v = api->godot_dictionary_get(&map_data, &s_width);
-	int width = api->godot_variant_as_int(&width_v);
+	int width = static_cast<int>(api->godot_variant_as_int(&width_v));
 
 	godot_variant s_height = gv_str("height");
 	godot_variant height_v = api->godot_dictionary_get(&map_data, &s_height);
-	int height = api->godot_variant_as_int(&height_v);
+	int height = static_cast<int>(api->godot_variant_as_int(&height_v));
 
 	godot_variant s_tiles = gv_str("tiles");
 	godot_variant tiles_v = api->godot_dictionary_get(&map_data, &s_tiles);
@@ -104,7 +104,8 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 
 	godot_string s_residence = gs_str("residence"), s_street = gs_str("street"), s_work = gs_str("work"), s_hobby = gs_str("hobby");
 	godot_string s_high = gs_str("high"), s_mid = gs_str("mid"), s_low = gs_str("low"), s_poor = gs_str("poor");
-	godot_string s_skate = gs_str("skate"), s_theater = gs_str("theater"), s_acarde = gs_str("acarde"), s_tennis = gs_str("tennis");
+	godot_string s_skate = gs_str("skat_park"), s_theater = gs_str("theater"), s_arcade = gs_str("arcade"), s_tennis = gs_str("tennis");
+	godot_string s_government = gs_str("government");
 
 	std::vector<Game::Map::Tile> tiles;
 
@@ -125,21 +126,27 @@ godot_variant world_init(godot_object *p_instance, void *p_method_data, void *p_
 				if (g_s_eq(&quality, &s_high)) t.info.quality = Game::Map::Tile::Info::Quality::High;
 				else if (g_s_eq(&quality, &s_mid)) t.info.quality = Game::Map::Tile::Info::Quality::Mid;
 				else if (g_s_eq(&quality, &s_low)) t.info.quality = Game::Map::Tile::Info::Quality::Low;
-				else if (g_s_eq(&quality, &s_poor)) t.info.quality = Game::Map::Tile::Info::Quality::Poor;
+				else if (g_s_eq(&quality, &s_poor)) t.info.quality = Game::Map::Tile::Info::Quality::Low;
 			} else if (g_s_eq(&type, &s_street)) {
 				t.type = Game::Map::Tile::Type::Street;
 			} else if (g_s_eq(&type, &s_work)) {
 				t.type = Game::Map::Tile::Type::Work;
 				godot_variant v_income = api->godot_dictionary_get(&tile, &s_income);
-				t.info.income = api->godot_variant_as_int(&v_income);
+				t.info.income = static_cast<int>(api->godot_variant_as_int(&v_income));
 			} else if (g_s_eq(&type, &s_hobby)) {
 				t.type = Game::Map::Tile::Type::Hobby;
 				godot_string name = g_dict_get_s(&tile, "name");
 				if (g_s_eq(&name, &s_skate)) t.info.hobby = Game::Map::Tile::Info::Hobby::Skate;
 				else if (g_s_eq(&name, &s_theater)) t.info.hobby = Game::Map::Tile::Info::Hobby::Theater;
-				else if (g_s_eq(&name, &s_acarde)) t.info.hobby = Game::Map::Tile::Info::Hobby::Arcade;
+				else if (g_s_eq(&name, &s_arcade)) t.info.hobby = Game::Map::Tile::Info::Hobby::Arcade;
 				else if (g_s_eq(&name, &s_tennis)) t.info.hobby = Game::Map::Tile::Info::Hobby::Tennis;
-			} else { /* we have a problem */ }
+			} else if (g_s_eq(&type, &s_government)) {
+				t.type = Game::Map::Tile::Type::Government;
+			} else {
+
+				printf("unknown tile type\n");
+				api->godot_print(&type);
+			}
 
 			tiles.push_back(t);
 		}

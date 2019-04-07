@@ -10,6 +10,15 @@ namespace Game {
 	using Path = std::vector<Math::Vec2I>;
 	using TileIndex = Math::Vec2I;
 
+	struct PopulationClass;
+
+	struct PopulationPlaces
+	{
+		std::vector<Math::Vec2I> home;
+		std::vector<Math::Vec2I> work;
+		std::vector<Math::Vec2I> hobby;
+	};
+
 	class Map
 	{
 	public:
@@ -27,7 +36,7 @@ namespace Game {
 				enum struct Quality {
 					High, Mid, Low, Poor
 				} quality;
-				int income;
+				int income; // [1-6]
 			} info;
 		};
 
@@ -39,6 +48,8 @@ namespace Game {
 
 		bool IsInside(Math::Vec2I _index) const;
 		Path ComputePath(Math::Vec2I _begin, Math::Vec2I _end) const;
+
+		PopulationPlaces GetPlaces(const PopulationClass& _class) const;
 	private:
 		int GetIndex(Math::Vec2I _index) const { return _index.x + _index.y * m_size.x; }
 
