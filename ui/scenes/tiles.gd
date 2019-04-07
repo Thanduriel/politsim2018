@@ -3,6 +3,7 @@ extends TileMap
 onready var global = get_node("/root/global")
 onready var cursor = get_node("/root/main/cursor")
 onready var canvaslayer = $"./CanvasLayer"
+onready var player = get_node("/root/main/sound/speech")
 
 const tiles_path = "res://assets/tiles/%s"
 
@@ -23,6 +24,16 @@ func simlib_call(action, tile_id):
 		global.politic += 0.2
 		
 	print("call: ", action, tile_id)
+	if action == "speech":
+		player.stream= load("res://assets/audio/Obama State Of The Union 2010-SoundBible.com-1976559822.wav")
+	if action == "police":
+		player.stream= load("res://assets/audio/70939__guitarguy1985__police3.wav")
+	if action == "flier":
+		player.stream= load("res://assets/audio/181774__keweldog__rustling-paper_adjusted.wav")
+	if action == "charity":
+		player.stream= load("res://assets/audio/91924__benboncan__till-with-bell.wav")
+
+	player.play()
 	global.World.action(action, tile_id)
 
 func _input(event):

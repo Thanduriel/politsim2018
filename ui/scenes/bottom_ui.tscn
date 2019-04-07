@@ -31,24 +31,24 @@ anchor_bottom = 1.0
 margin_bottom = -521.0
 
 [node name="status_ui" parent="Control" instance=ExtResource( 1 )]
-margin_bottom = 88.0
+margin_bottom = 84.0
 
 [node name="VSeparator" type="VSeparator" parent="Control"]
 margin_left = 252.0
 margin_right = 317.29
-margin_bottom = 88.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 margin_left = 321.0
 margin_right = 385.0
-margin_bottom = 88.0
+margin_bottom = 84.0
 
 [node name="Button" type="Button" parent="Control/CenterContainer"]
-margin_top = 12.0
+margin_top = 10.0
 margin_right = 64.0
-margin_bottom = 76.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 64, 64 )
 hint_tooltip = "Rede halten"
 focus_mode = 0
@@ -72,19 +72,19 @@ texture = ExtResource( 4 )
 [node name="VSeparator2" type="VSeparator" parent="Control"]
 margin_left = 389.0
 margin_right = 454.29
-margin_bottom = 88.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="Control"]
 margin_left = 458.0
 margin_right = 522.0
-margin_bottom = 88.0
+margin_bottom = 84.0
 
 [node name="Button" type="Button" parent="Control/CenterContainer2"]
-margin_top = 12.0
+margin_top = 10.0
 margin_right = 64.0
-margin_bottom = 76.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 64, 64 )
 hint_tooltip = "Polizeieinsatz"
 focus_mode = 0
@@ -106,19 +106,19 @@ texture = ExtResource( 5 )
 [node name="VSeparator3" type="VSeparator" parent="Control"]
 margin_left = 526.0
 margin_right = 591.29
-margin_bottom = 88.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer3" type="CenterContainer" parent="Control"]
 margin_left = 595.0
 margin_right = 659.0
-margin_bottom = 88.0
+margin_bottom = 84.0
 
 [node name="Button" type="Button" parent="Control/CenterContainer3"]
-margin_top = 12.0
+margin_top = 10.0
 margin_right = 64.0
-margin_bottom = 76.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 64, 64 )
 hint_tooltip = "Flugblätter verteilen"
 focus_mode = 0
@@ -140,19 +140,19 @@ texture = ExtResource( 6 )
 [node name="VSeparator4" type="VSeparator" parent="Control"]
 margin_left = 663.0
 margin_right = 728.29
-margin_bottom = 88.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer4" type="CenterContainer" parent="Control"]
 margin_left = 732.0
 margin_right = 796.0
-margin_bottom = 88.0
+margin_bottom = 84.0
 
 [node name="Button" type="Button" parent="Control/CenterContainer4"]
-margin_top = 12.0
+margin_top = 10.0
 margin_right = 64.0
-margin_bottom = 76.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 64, 64 )
 hint_tooltip = "Charety-aktion"
 focus_mode = 0
@@ -174,21 +174,21 @@ texture = ExtResource( 7 )
 [node name="VSeparator6" type="VSeparator" parent="Control"]
 margin_left = 800.0
 margin_right = 844.62
-margin_bottom = 88.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 44.62, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer5" type="CenterContainer" parent="Control"]
 margin_left = 848.0
 margin_right = 1024.0
-margin_bottom = 88.0
+margin_bottom = 84.0
 size_flags_horizontal = 3
 
 [node name="day_counter" type="Label" parent="Control/CenterContainer5"]
-margin_left = 68.0
+margin_left = 70.0
 margin_top = 30.0
-margin_right = 108.0
-margin_bottom = 57.0
+margin_right = 106.0
+margin_bottom = 53.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 3 )
 text = "foo"
