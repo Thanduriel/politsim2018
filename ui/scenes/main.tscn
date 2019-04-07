@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://tilemap_light.shader" type="Shader" id=2]
@@ -11,6 +11,11 @@
 [ext_resource path="res://assets/audio/398159__inspectorj__ambience-london-street-a_shorter.ogg" type="AudioStream" id=9]
 [ext_resource path="res://assets/audio/240233__habbis92__piccadilly-circus-ambience_adjusted.ogg" type="AudioStream" id=10]
 [ext_resource path="res://assets/audio/220210__gameaudio__bonk-click-w-deny-feel.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/Protest_short.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/audio/Obama State Of The Union 2010-SoundBible.com-1976559822.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/audio/70939__guitarguy1985__police3.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/audio/91924__benboncan__till-with-bell.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/audio/181774__keweldog__rustling-paper_adjusted.wav" type="AudioStream" id=16]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
@@ -83,4 +88,20 @@ bus = "Background"
 
 [node name="Button" type="AudioStreamPlayer" parent="sound"]
 stream = ExtResource( 11 )
+bus = "Button"
+
+[node name="Protest" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 12 )
+
+[node name="speech" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 13 )
+
+[node name="police" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 14 )
+
+[node name="charity" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 15 )
+
+[node name="leaflets" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 16 )
 
