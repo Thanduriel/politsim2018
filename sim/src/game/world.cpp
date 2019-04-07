@@ -24,7 +24,7 @@ namespace Game {
 		m_randomGenerator(Utils::RandomSeed()),
 		m_tileSize(0.25),
 		m_money(1337),
-		m_politicBar(0.3f) { }
+		m_politicBar(0.5f) { }
 
 	void World::Init(Map&& _map)
 	{
@@ -58,7 +58,19 @@ namespace Game {
 		{
 			++m_day;
 			m_time -= 1.f;
-		//	std::cout << "new day " << m_day << "\n";
+
+			// re-evaluate politicbar
+			double pol;
+			double dominantParty = m_politicBar > 0.5 ? 1.0 : 0.0;
+
+			for (Actor& actor : m_actors) {
+				if (actor.politic <= 0.35) { /* pol += 0; */ }
+				else if (actor.politic >= 0.65) pol += 1;
+				else if (actor.satisfaction >= 0.5) pol += dominantParty;
+				else pol += (1 - dominantParty);
+			
+			}
+			m_politicBar = pol / m_actors.size();
 		}
 		m_actorsInBuilding.resize(0);
 		m_actorsOnStreet.resize(0);
@@ -66,13 +78,21 @@ namespace Game {
 		{
 			// reached next tile
 			if (actor.currentPath.size() && PositionToIndex(actor.position) == actor.currentPath.back())
+			{
 				actor.currentPath.pop_back();
+				if (!actor.currentPath.size())
+				{
+					const Vec2 center = IndexToPosition(PositionToIndex(actor.position));
+					const Vec2 noise(m_randomGenerator.Uniform(-0.125f, 0.125f), m_randomGenerator.Uniform(-0.125f, 0.125f));
+					actor.positionNoise = center + noise;
+				}
+			}
 			// currently on the way
 			if (actor.currentPath.size())
 			{
 				const Vec2 targetPos = IndexToPosition(actor.currentPath.back());
 				const Vec2 dir = (targetPos - actor.position).Normalized();
-				const Vec2 noise = m_randomGenerator.Direction()* 0.2f;
+				const Vec2 noise = m_randomGenerator.Direction()* 0.4f;
 
 				actor.position += (dir + noise).Normalized() * _deltaTime * MOVEMENT_SPEED;
 			}
@@ -84,6 +104,13 @@ namespace Game {
 				actor.currentActivity = next;
 				const Vec2I curInd = PositionToIndex(actor.position);
 				actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
+			}
+			// just move around a little on the current tile
+			else
+			{
+				const Vec2 dir = (actor.positionNoise) - actor.position;
+				const float l = dir.Len();
+				if (l > 0.01f) actor.position += dir / l * 0.1f * _deltaTime;
 			}
 
 			if (actor.currentPath.size() == 0) {
@@ -138,6 +165,7 @@ namespace Game {
 		Actor actor{};
 		actor.activityLocations = { RandVec(_places.work), RandVec(_places.hobby), RandVec(_places.home) };
 		actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
+		actor.positionNoise = actor.position;
 		actor.wakeUpTime = m_randomGenerator.Uniform(0u, 10u) > 1u ?
 			daySchedule(m_randomGenerator)
 			: nightSchedule(m_randomGenerator);

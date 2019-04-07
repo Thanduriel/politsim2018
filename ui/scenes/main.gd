@@ -12,6 +12,11 @@ func _ready():
 	
 	add_child(citizen)
 	
+	$sound/BG1.play()
+	$sound/BG2.play()
+	$sound/BG3.play()
+	$sound/BG4.play()
+	
 	
 func _process(delta):
 	var pos = global.World.get_actor_positions()

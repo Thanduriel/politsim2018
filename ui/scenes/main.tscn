@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://tilemap_light.shader" type="Shader" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://scenes/tiles.gd" type="Script" id=4]
 [ext_resource path="res://scenes/bottom_ui.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/cursor.gd" type="Script" id=6]
+[ext_resource path="res://assets/audio/92032__urupin__city-street_shorter.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/212032__vonfleisch__prague-staro-mesto-city-center-part_shorter.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/audio/398159__inspectorj__ambience-london-street-a_shorter.ogg" type="AudioStream" id=9]
+[ext_resource path="res://assets/audio/240233__habbis92__piccadilly-circus-ambience_adjusted.ogg" type="AudioStream" id=10]
+[ext_resource path="res://assets/audio/220210__gameaudio__bonk-click-w-deny-feel.wav" type="AudioStream" id=11]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
@@ -57,4 +62,25 @@ margin_right = 42.5867
 margin_bottom = 555.7
 mouse_filter = 2
 script = ExtResource( 6 )
+
+[node name="sound" type="Node" parent="."]
+
+[node name="BG1" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 7 )
+bus = "Background"
+
+[node name="BG2" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 8 )
+bus = "Background"
+
+[node name="BG3" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 9 )
+bus = "Background"
+
+[node name="BG4" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 10 )
+bus = "Background"
+
+[node name="Button" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource( 11 )
 
