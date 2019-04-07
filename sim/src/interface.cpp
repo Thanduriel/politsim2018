@@ -221,7 +221,9 @@ godot_variant world_action(godot_object *p_instance, void *p_method_data, void *
 	godot_string s_speech = gs_str("speech"), s_flier = gs_str("flier");
 
 	if (g_s_eq(&type, &s_speech)) {
-		world.AddEvent(std::unique_ptr<Game::Event>(new Game::Events::Speech(0.03, 0.3, 3.4, index_v)));
+		world.AddEvent(std::unique_ptr<Game::Event>(
+			new Game::Events::Speech(0.03f, 0.3f, 7.4f, index_v)));
+		printf("adding event\n");
 	} else if (g_s_eq(&type, &s_flier)) {
 		world.AddEvent(std::unique_ptr<Game::Event>(new Game::Events::Flier(0.03, 0.3, 3.4, index_v)));
 	}

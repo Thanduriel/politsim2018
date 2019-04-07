@@ -139,6 +139,15 @@ namespace Game {
 			for (auto itr2 = itr1 + 1; itr2 != m_actorsInBuilding.end() && (*itr1)->position != (*itr2)->position; ++itr2)
 				Interaction(**itr1, **itr2, _deltaTime);
 		}
+
+		UpdateEvents(_deltaTime * m_timeFactor);
+	}
+
+	void World::AddEvent(std::unique_ptr<Event> _event)
+	{
+		_event->position = IndexToPosition(Math::Vec2I(_event->position));
+		m_money -= _event->price;
+		m_events.push_back(std::move(_event));
 	}
 
 	Vec2I World::PositionToIndex(Vec2 _position) const
@@ -208,7 +217,10 @@ namespace Game {
 			ev->duration -= _deltaTime;
 			for (Actor* actor : m_actorsOnStreet)
 				if (DistanceSq(actor->position, ev->position) < ev->rangeSq)
+				{
+					std::cout << "try influencing\n";
 					(*ev)(*actor, _deltaTime);
+				}
 		}
 
 		auto it = std::remove_if(m_events.begin(), m_events.end(), [](const auto& ev) 
