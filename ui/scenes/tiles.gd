@@ -3,6 +3,9 @@ extends TileMap
 onready var global = get_node("/root/global")
 onready var cursor = get_node("/root/main/cursor")
 onready var canvaslayer = $"./CanvasLayer"
+onready var player = get_node("/root/main/sound/speech")
+
+const tombstone = preload("res://scenes/tombstone.tscn")
 
 const tiles_path = "res://assets/tiles/%s"
 
@@ -14,6 +17,11 @@ func send_action(actionName):
 	action = actionName
 	
 func cancle_action():
+	var ts = tombstone.instance()
+	ts.texture = cursor.get_texture()
+	ts.position = get_global_mouse_position()
+	$"/root".add_child(ts)
+	
 	cursor.set_texture(null)
 	action_send = true
 
@@ -21,7 +29,19 @@ func simlib_call(action, tile_id):
 	if global.money > 0:
 		global.money -= 1
 		global.politic += 0.2
-	print("call: ", action, tile_id);
+		
+	print("call: ", action, tile_id)
+	if action == "speech":
+		player.stream= load("res://assets/audio/Obama State Of The Union 2010-SoundBible.com-1976559822.wav")
+	if action == "police":
+		player.stream= load("res://assets/audio/70939__guitarguy1985__police3.wav")
+	if action == "flier":
+		player.stream= load("res://assets/audio/181774__keweldog__rustling-paper_adjusted.wav")
+	if action == "charity":
+		player.stream= load("res://assets/audio/91924__benboncan__till-with-bell.wav")
+
+	player.play()
+	global.World.action(action, tile_id)
 
 func _input(event):
 	if event is InputEventMouseButton \
@@ -38,9 +58,8 @@ func _input(event):
 		and tile_pos.x >= 0 \
 		and tile_pos.y < global.map.height \
 		and tile_pos.y >= 0:
-			var tile_id = tile_pos.y * global.map.width + tile_pos.x
 			cancle_action()
-			simlib_call(action, tile_id)
+			simlib_call(action, tile_pos)
 
 func get_texture_by_name(name):
 	var path = tiles_path % (name + ".png")

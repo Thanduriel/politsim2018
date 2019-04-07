@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=5 format=2]
+[gd_resource type="AudioBusLayout" load_steps=7 format=2]
 
 [sub_resource type="AudioEffectChorus" id=1]
 resource_name = "Chorus"
@@ -12,6 +12,12 @@ resource_name = "Delay"
 [sub_resource type="AudioEffectChorus" id=4]
 resource_name = "Chorus"
 
+[sub_resource type="AudioEffectDelay" id=5]
+resource_name = "Delay"
+
+[sub_resource type="AudioEffectChorus" id=6]
+resource_name = "Chorus"
+
 [resource]
 bus/0/volume_db = -4.8
 bus/0/effect/0/effect = SubResource( 1 )
@@ -22,10 +28,26 @@ bus/1/name = "Background"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
-bus/1/volume_db = -14.0
+bus/1/volume_db = -10.3
 bus/1/send = "Master"
 bus/1/effect/0/effect = SubResource( 3 )
 bus/1/effect/0/enabled = true
 bus/1/effect/1/effect = SubResource( 4 )
 bus/1/effect/1/enabled = true
+bus/2/name = "Protest"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = "Master"
+bus/2/effect/0/effect = SubResource( 5 )
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource( 6 )
+bus/2/effect/1/enabled = true
+bus/3/name = "Button"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = -17.8
+bus/3/send = "Master"
 
