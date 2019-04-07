@@ -4,6 +4,7 @@
 #include <limits>
 #include <iostream>
 #include <queue>
+#include <algorithm>
 
 namespace Game {
 
