@@ -183,11 +183,13 @@
 				"texture": 13
 			},
 			{
-				"type": "park",
+				"type": "street",
+				"quality": "high"
 				"texture": 26
 			},
 			{
-				"type": "park",
+				"type": "street",
+				"quality": "high"
 				"texture": 27
 			},
 			{
