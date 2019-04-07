@@ -43,7 +43,7 @@ namespace Game {
 			Flier(float _duration, float _range, float _influence, Math::Vec2 _position)
 				: Event(_duration, _range, _position),
 				m_influence(_influence)
-			{}
+			{ price = 8; }
 
 			virtual void operator() (Actor& _actor, float _deltaTime) const override;
 
