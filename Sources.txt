@@ -22,10 +22,13 @@ shortened
 1. [amphiethatre](https://unsplash.com/photos/ja8w8lfXo2c)
 **[Lucas Miguel](https://unsplash.com/@lucasmiguel)**
 
+#CC 0 (https://creativecommons.org/publicdomain/zero/1.0/)
+1. [Game Audio - UI SFX » Bonk Click w/deny feel] (https://freesound.org/people/GameAudio/sounds/220210/)
+** by GameAudio (https://freesound.org/people/GameAudio/)
+2. [City ambience » Piccadilly_Circus_Ambience.WAV ] (https://freesound.org/people/habbis92/sounds/240233/)
+** by habbis92 (https://freesound.org/people/habbis92/)
+changed
+
 #Also
 1. [Riot Angry Mob Sound Effect] (found at https://www.youtube.com/watch?v=lHhx8Qp_l6Q)
 **by Audio Productions (https://www.youtube.com/user/JustAudio2008/featured)
-2. [City ambience » Piccadilly_Circus_Ambience.WAV ] (https://freesound.org/people/habbis92/sounds/240233/)
-** by habbis92 (https://freesound.org/people/habbis92/)
-License: CC 0 (https://creativecommons.org/publicdomain/zero/1.0/)
-changed
