@@ -200,6 +200,23 @@ namespace Game {
 		}
 		return std::move(res);
 	}
+
+	void World::UpdateEvents(float _deltaTime)
+	{
+		for (auto& ev : m_events)
+		{
+			ev->duration -= _deltaTime;
+			for (Actor* actor : m_actorsOnStreet)
+				if (DistanceSq(actor->position, ev->position) < ev->rangeSq)
+					(*ev)(*actor, _deltaTime);
+		}
+
+		auto it = std::remove_if(m_events.begin(), m_events.end(), [](const auto& ev) 
+		{
+			return ev->duration <= 0.f;
+		});
+		m_events.erase(it, m_events.end());
+	}
 }
 
 bool Game::ActorUpdate::SortedAxisCompare(const Actor* ac1, const Actor* ac2) {
