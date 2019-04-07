@@ -71,7 +71,8 @@ func _ready():
 
 var hover_tile = Vector2(0, 0)
 var time = 0
-export var hover_time = 1
+export var hover_time_trigger = 1
+var hover_time = 0
 var label = null
 func show_name(tile):
 	if (!label):
@@ -118,12 +119,12 @@ func _process(delta):
 	var tile = world_to_map(get_global_mouse_position() / scale)
 	if tile.x == hover_tile.x \
 	and tile.y == hover_tile.y:
-		time += delta
-		if time >= hover_time:
+		hover_time += delta
+		if hover_time >= hover_time_trigger:
 			show_name(tile)
 		else:
 			hide_name()
 	else:
-		time = 0
+		hover_time = 0
 		hover_tile = tile
 		hide_name()
