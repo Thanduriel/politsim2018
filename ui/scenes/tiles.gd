@@ -105,7 +105,16 @@ func hide_name():
 		label.free()
 		label = null
 
+
+export var colors = [ Color.red, Color.green, Color.blue ]
+
 func _process(delta):
+	var c_len = colors.size()
+	var time = global.World.get_time()
+	var index = time * c_len
+	var c = colors[int(floor(index)) % c_len].linear_interpolate(colors[int(ceil(index)) % c_len], fmod(index, 1.0))
+	material.set_shader_param("modulate", c)
+	
 	var tile = world_to_map(get_global_mouse_position() / scale)
 	if tile.x == hover_tile.x \
 	and tile.y == hover_tile.y:
