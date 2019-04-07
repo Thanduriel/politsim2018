@@ -84,7 +84,7 @@ namespace Game {
 				m_actorsOnStreet.push_back(&actor);
 			}
 
-			Game::ActorUpdate::Update(actor, m_map, _deltaTime);
+			UpdateActor(actor, _deltaTime);
 		}
 		
 		std::sort(m_actorsOnStreet.begin(), m_actorsOnStreet.end(), Game::ActorUpdate::SortedAxisCompare);
@@ -96,12 +96,12 @@ namespace Game {
 				&& (*itr1)->position.x + Game::ActorUpdate::InteractionDisSqr < (*itr2)->position.x;
 				++itr2) {
 				if (((*itr1)->position - (*itr2)->position).LenSqr() <= Game::ActorUpdate::InteractionDisSqr)
-					Game::ActorUpdate::Interaction(**itr1, **itr2, _deltaTime);
+					Interaction(**itr1, **itr2, _deltaTime);
 			}
 		}
 		for (auto itr1 = m_actorsInBuilding.begin(); itr1 != m_actorsInBuilding.end(); ++itr1) {
 			for (auto itr2 = itr1 + 1; itr2 != m_actorsInBuilding.end() && (*itr1)->position != (*itr2)->position; ++itr2)
-				Game::ActorUpdate::Interaction(**itr1, **itr2, _deltaTime);
+				Interaction(**itr1, **itr2, _deltaTime);
 		}
 	}
 
@@ -178,25 +178,25 @@ T capAdd(T value, T diff, T max = 1, T min = 0) {
 	else if (res < min) res = min;
 	return res;
 }
-void Game::ActorUpdate::Interaction(Actor& act1, Actor& act2, float dTime) {
+void Game::World::Interaction(Actor& act1, Actor& act2, float dTime) {
 	// ähliche meinung
 	if (abs(act1.politic - act2.politic) <= 0.4f) {
 		float mean = (act1.politic + act2.politic) / 2;
 		// act1.politic = capAdd(act1.politic, );
 	}
 }
-void Game::ActorUpdate::Update(Actor& act, const Map& map, float dTime) {
-	int income = map.Get(act.activityLocations[Activity::Work]).info;
+void Game::World::UpdateActor(Actor& act, float dTime) {
+	int income = m_map.Get(act.activityLocations[Activity::Work]).info.income;
 	
 	// unzufriedenheit -> activ
 	act.activity = capAdd(act.activity, (.7f - act.satisfaction) * 0.1f * dTime);
 	// hoppy -> zufrieden
-	if (act.position == act.activityLocations[Activity::Hobby])
+	if (PositionToIndex(act.position) == (act.activityLocations[Activity::Hobby]))
 		act.satisfaction = capAdd(act.satisfaction, 0.1f * dTime);
 	// schlafen -> gesundheit
-	if (act.position == act.activityLocation[Activity::Home])
+	if (PositionToIndex(act.position) == (act.activityLocations[Activity::Home]))
 		act.health = capAdd(act.health, 0.2f * dTime);
 	// Arbeitt -> activität sinkt
-	if (act.position == act.activityLocations[Activity::Work])
+	if (PositionToIndex(act.position) == (act.activityLocations[Activity::Work]))
 		act.activity = capAdd(act.activity, 0.2f * dTime);
 }

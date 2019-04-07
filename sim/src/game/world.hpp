@@ -9,8 +9,6 @@
 namespace Game {
 	namespace ActorUpdate {
 		constexpr float InteractionDisSqr = .25f;
-		void Interaction(Actor& act1, Actor& act2, float dTime);
-		void Update(Actor& act, const Map& map, float dTime);
 		bool SortedAxisCompare(const Actor* ac1, const Actor* ac2);
 		bool TileSortCompare(const Actor* ac1, const Actor* ac2);
 	}
@@ -34,6 +32,8 @@ namespace Game {
 		float GetTime() const { return m_time; }
 
 	private:
+		void Interaction(Actor& act1, Actor& act2, float dTime);
+		void UpdateActor(Actor& act, float dTime);
 		Math::Vec2I PositionToIndex(Math::Vec2 _position) const;
 		// gives position of a tile's center
 		Math::Vec2 IndexToPosition(Math::Vec2I _index) const;
