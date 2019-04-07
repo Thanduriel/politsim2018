@@ -74,6 +74,11 @@ export var hover_time = 1
 var label = null
 func show_name(tile):
 	if (!label):
+		if tile.x >= global.map.width \
+		or tile.x < 0 \
+		or tile.y >= global.map.height \
+		or tile.y < 0:
+			return
 		label = Label.new()
 		label.text = global.map.tiles[tile.y][tile.x].type
 		var info = global.map.tiles[tile.y][tile.x].get("name")
