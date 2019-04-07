@@ -21,7 +21,9 @@ func simlib_call(action, tile_id):
 	if global.money > 0:
 		global.money -= 1
 		global.politic += 0.2
-	print("call: ", action, tile_id);
+		
+	print("call: ", action, tile_id)
+	global.World.action(action, tile_id)
 
 func _input(event):
 	if event is InputEventMouseButton \
@@ -38,9 +40,8 @@ func _input(event):
 		and tile_pos.x >= 0 \
 		and tile_pos.y < global.map.height \
 		and tile_pos.y >= 0:
-			var tile_id = tile_pos.y * global.map.width + tile_pos.x
 			cancle_action()
-			simlib_call(action, tile_id)
+			simlib_call(action, tile_pos)
 
 func get_texture_by_name(name):
 	var path = tiles_path % (name + ".png")
