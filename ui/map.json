@@ -31,7 +31,8 @@
 		"platzl",
 		"platzr",
 		"handwerker",
-		"arcade"
+		"arcade",
+		"skyscraper"
 	],
 	"tiles": [
 		[
@@ -142,7 +143,7 @@
 			{
 				"type": "residence",
 				"quality": "mid",
-				"texture": -1
+				"texture": 30
 			},
 			{
 				"type": "work",
@@ -202,7 +203,7 @@
 			{
 				"type": "residence",
 				"quality": "mid",
-				"texture": -1
+				"texture": 30
 			},
 			{
 				"type": "work",
@@ -219,7 +220,7 @@
 			{
 				"type": "residence",
 				"quality": "mid",
-				"texture": -1
+				"texture": 30
 			},
 			{
 				"type": "street",
@@ -239,7 +240,7 @@
 			{
 				"type": "residence",
 				"quality": "mid",
-				"texture": -1
+				"texture": 30
 			},
 			{
 				"type": "street",
@@ -254,7 +255,7 @@
 			{
 				"type": "residence",
 				"quality": "mid",
-				"texture": -1
+				"texture": 30
 			},
 			{
 				"type": "street",
@@ -358,12 +359,12 @@
 			{
 				"type": "residence",
 				"quality": "mid",
-				"texture": -1
+				"texture": 30
 			},
 			{
 				"type": "residence",
 				"quality": "mid",
-				"texture": -1
+				"texture": 30
 			},
 			{
 				"type": "hobby",
