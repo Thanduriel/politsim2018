@@ -67,3 +67,50 @@ func _ready():
 	for x in range(map.width):
 		for y in range(map.height):
 			set_cell(x, y, map.tiles[y][x].texture)
+
+var hover_tile = Vector2(0,0)
+var time = 0
+export var hover_time = 1
+var label = null
+func show_name(tile):
+	if (!label):
+		label = Label.new()
+		label.text = global.map.tiles[tile.y][tile.x].type
+		var info = global.map.tiles[tile.y][tile.x].get("name")
+		if info:
+			label.text += "\n" + info
+		else:
+			info = global.map.tiles[tile.y][tile.x].get("quality")
+			if info:
+				label.text += "\n" + info
+			else:
+				info = global.map.tiles[tile.y][tile.x].get("income")
+				if info:
+					label.text += "\nincome: " + str(info)
+		add_child(label)
+		var s = cell_size;
+		label.rect_position = Vector2(tile.x * s.x, tile.y * s.y)
+		var d = cell_size.x * global.map.width - (label.rect_position.x + label.rect_size.x)
+		if d < 0:
+			label.rect_position.x += d
+
+func hide_name():
+	if (label):
+		label.free()
+		label = null
+
+func _process(delta):
+	var tile = world_to_map(get_global_mouse_position() / scale)
+	if tile.x == hover_tile.x \
+	and tile.y == hover_tile.y:
+		time += delta
+		if time >= hover_time:
+			show_name(tile)
+		else:
+			hide_name()
+	else:
+		time = 0
+		hover_tile = tile
+		hide_name()
+		
+	pass
