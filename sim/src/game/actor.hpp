@@ -28,6 +28,7 @@ namespace Game {
 		Math::Vec2 position;
 		Activity currentActivity;
 		Path currentPath;
+		float politic, activity, satisfaction, health;
 	};
 
 	struct PopulationClass
