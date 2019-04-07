@@ -15,6 +15,8 @@ namespace Game {
 
 		float duration;
 		float rangeSq;
+		int price = 0;
+
 		Math::Vec2 position;
 		
 		virtual void operator() (Actor& _actor, float _deltaTime) const = 0;
@@ -26,12 +28,28 @@ namespace Game {
 			Speech(float _duration, float _range, float _influence, Math::Vec2 _position)
 				: Event(_duration, _range, _position),
 				m_influence(_influence)
-			{}
+			{
+				price = 16;
+			}
 
 			virtual void operator() (Actor& _actor, float _deltaTime) const override;
 
 		private:
 			float m_influence;
 		};
+
+		struct Flier : public Event
+		{
+			Flier(float _duration, float _range, float _influence, Math::Vec2 _position)
+				: Event(_duration, _range, _position),
+				m_influence(_influence)
+			{ price = 8; }
+
+			virtual void operator() (Actor& _actor, float _deltaTime) const override;
+
+		private:
+			float m_influence;
+		};
+
 	}
 }
