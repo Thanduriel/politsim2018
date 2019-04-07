@@ -184,12 +184,12 @@
 			},
 			{
 				"type": "street",
-				"quality": "high"
+				"quality": "high",
 				"texture": 26
 			},
 			{
 				"type": "street",
-				"quality": "high"
+				"quality": "high",
 				"texture": 27
 			},
 			{
