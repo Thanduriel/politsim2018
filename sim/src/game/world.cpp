@@ -11,7 +11,7 @@ namespace Game {
 		m_day(0),
 		m_randomGenerator(Utils::RandomSeed()),
 		m_tileSize(0.25),
-		?_money(1337),
+		m_money(1337),
 		m_politicBar(0.3f) { }
 
 	void World::Init(Map&& _map)

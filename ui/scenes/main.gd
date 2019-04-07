@@ -15,6 +15,8 @@ func _process(delta):
 	var all_citizen = citizen.get_children()
 	
 	global.World.update(delta)
+	global.money = global.World.get_money()
+	global.politic = global.World.get_politic()
 	
 	if all_citizen.size() < pos.size():
 		var missing = pos.size() - all_citizen.size()

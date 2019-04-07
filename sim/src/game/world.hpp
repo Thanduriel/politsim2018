@@ -23,7 +23,7 @@ namespace Game {
 		int GetMoney() const { return m_money; }
 		float GetPoliticBar() const { return m_politicBar; }
 
-		float GetDay() const { return m_day; }
+		int GetDay() const { return m_day; }
 		float GetTime() const { return m_time; }
 	private:
 		Math::Vec2I PositionToIndex(Math::Vec2 _position) const;
