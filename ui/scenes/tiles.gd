@@ -5,6 +5,8 @@ onready var cursor = get_node("/root/main/cursor")
 onready var canvaslayer = $"./CanvasLayer"
 onready var player = get_node("/root/main/sound/speech")
 
+const tombstone = preload("res://scenes/tombstone.tscn")
+
 const tiles_path = "res://assets/tiles/%s"
 
 var action_send = true
@@ -15,6 +17,11 @@ func send_action(actionName):
 	action = actionName
 	
 func cancle_action():
+	var ts = tombstone.instance()
+	ts.texture = cursor.get_texture()
+	ts.position = get_global_mouse_position()
+	$"/root".add_child(ts)
+	
 	cursor.set_texture(null)
 	action_send = true
 
