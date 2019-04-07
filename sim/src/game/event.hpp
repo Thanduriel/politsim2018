@@ -33,5 +33,16 @@ namespace Game {
 		private:
 			float m_influence;
 		};
+
+		struct Demo : public Event {
+			Speech(float _duration, float _range, float _influence, bool _contra, Math::Vec2 _position)
+				: Event(_duration, _range, _position),
+				m_contra(_contra)
+			{}
+
+			virtual void operator() (Actor& _actor, float _deltaTime) const override;
+		private:
+			bool m_contra;
+		};
 	}
 }
