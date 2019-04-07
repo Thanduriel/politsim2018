@@ -7,8 +7,4 @@ export var action_type = "test"
 
 func pressed():
 		tile_map.send_action(action_type)
-		cursor.set_texture(get_child(0).get_child(0).get_texture())
-
-func _ready():
-	pass # Replace with function body.
-
+		cursor.set_texture($"./CenterContainer/TextureRect".get_texture())
