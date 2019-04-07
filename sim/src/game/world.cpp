@@ -37,7 +37,8 @@ namespace Game {
 			m_time -= 1.f;
 			std::cout << "new day " << m_day << "\n";
 		}
-
+		m_actorsInBuilding.resize(0);
+		m_actorsOnStreet.resize(0);
 		for (Actor& actor : m_actors)
 		{
 			// reached next tile
@@ -61,6 +62,31 @@ namespace Game {
 				const Vec2I curInd = PositionToIndex(actor.position);
 				actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
 			}
+
+			if (actor.currentPath.size() == 0) {
+				m_actorsInBuilding.push_back(&actor);
+			} else {
+				m_actorsOnStreet.push_back(&actor);
+			}
+
+			Game::ActorUpdate::Update(actor);
+		}
+		
+		std::sort(m_actorsOnStreet.begin(), m_actorsOnStreet.end(), Game::ActorUpdate::SortedAxisCompare);
+		std::sort(m_actorsInBuilding.begin(), m_actorsInBuilding.end(), Game::ActorUpdate::TileSortCompare);
+
+		for (auto itr1 = m_actorsOnStreet.begin(); itr1 != m_actorsOnStreet.end(); ++itr1) {
+			for (auto itr2 = itr1 + 1;
+				itr2 != m_actorsOnStreet.end() 
+				&& (*itr1)->position.x + Game::ActorUpdate::InteractionDisSqr < (*itr2)->position.x;
+				++itr2) {
+				if (((*itr1)->position - (*itr2)->position).LenSqr() <= Game::ActorUpdate::InteractionDisSqr)
+					Game::ActorUpdate::Interaction(**itr1, **itr2);
+			}
+		}
+		for (auto itr1 = m_actorsInBuilding.begin(); itr1 != m_actorsInBuilding.end(); ++itr1) {
+			for (auto itr2 = itr1 + 1; itr2 != m_actorsInBuilding.end() && (*itr1)->position != (*itr2)->position; ++itr2)
+				Game::ActorUpdate::Interaction(**itr1, **itr2);
 		}
 	}
 
@@ -103,13 +129,28 @@ namespace Game {
 		return actor;
 	}
 
-	std::vector<const Actor*>&& Game::World::GetNear(const Math::Vec2& _position, float _maxDis) const {
+	std::vector<const Actor*>&& Game::World::GetNearStreet(const Math::Vec2& _position, float _maxDis) const {
 		float _maxDisSq = _maxDis * _maxDis;
 		std::vector<const Actor*> res(0);
-		for (const Actor& a : m_actors) {
-			if ((a.position - _position).LenSqr() <= _maxDisSq)
-				res.push_back(&a);
+		for (Actor*const & a : m_actorsOnStreet) {
+			if ((a->position - _position).LenSqr() <= _maxDisSq)
+				res.push_back(a);
 		}
 		return std::move(res);
 	}
 }
+
+bool Game::ActorUpdate::SortedAxisCompare(const Actor* ac1, const Actor* ac2) {
+	return (ac1->position.x < ac2->position.x);
+}
+
+int calcId(const Math::Vec2I& vec) {
+	return vec.y * 100 + vec.x;
+}
+bool Game::ActorUpdate::TileSortCompare(const Actor* ac1, const Actor* ac2) {
+	return (calcId(ac1->activityLocations[ac1->currentActivity])
+		< calcId(ac2->activityLocations[ac2->currentActivity]));
+}
+
+void Game::ActorUpdate::Interaction(Actor& act1, Actor& act2) {}
+void Game::ActorUpdate::Update(Actor& act) {}
