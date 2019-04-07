@@ -41,7 +41,6 @@ rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
-editor/display_folded = true
 margin_left = 321.0
 margin_right = 385.0
 margin_bottom = 88.0
@@ -56,7 +55,7 @@ focus_mode = 0
 theme = ExtResource( 2 )
 enabled_focus_mode = 0
 script = ExtResource( 3 )
-action_type = "rede"
+action_type = "speech"
 
 [node name="CenterContainer" type="CenterContainer" parent="Control/CenterContainer/Button"]
 anchor_right = 1.0
@@ -78,7 +77,6 @@ rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="Control"]
-editor/display_folded = true
 margin_left = 458.0
 margin_right = 522.0
 margin_bottom = 88.0
@@ -93,7 +91,7 @@ focus_mode = 0
 theme = ExtResource( 2 )
 enabled_focus_mode = 0
 script = ExtResource( 3 )
-action_type = "polizei"
+action_type = "police"
 
 [node name="CenterContainer" type="CenterContainer" parent="Control/CenterContainer2/Button"]
 anchor_right = 1.0
@@ -113,7 +111,6 @@ rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer3" type="CenterContainer" parent="Control"]
-editor/display_folded = true
 margin_left = 595.0
 margin_right = 659.0
 margin_bottom = 88.0
@@ -128,7 +125,7 @@ focus_mode = 0
 theme = ExtResource( 2 )
 enabled_focus_mode = 0
 script = ExtResource( 3 )
-action_type = "flugblatt"
+action_type = "flier"
 
 [node name="CenterContainer" type="CenterContainer" parent="Control/CenterContainer3/Button"]
 anchor_right = 1.0
@@ -148,7 +145,6 @@ rect_min_size = Vector2( 65.29, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="CenterContainer4" type="CenterContainer" parent="Control"]
-editor/display_folded = true
 margin_left = 732.0
 margin_right = 796.0
 margin_bottom = 88.0
@@ -163,7 +159,7 @@ focus_mode = 0
 theme = ExtResource( 2 )
 enabled_focus_mode = 0
 script = ExtResource( 3 )
-action_type = "charety"
+action_type = "charity"
 
 [node name="CenterContainer" type="CenterContainer" parent="Control/CenterContainer4/Button"]
 anchor_right = 1.0

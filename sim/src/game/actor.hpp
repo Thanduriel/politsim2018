@@ -30,6 +30,7 @@ namespace Game {
 		Activity currentActivity;
 		Path currentPath;
 		float politic, activity, satisfaction, health;
+		int income;
 	};
 
 	struct PopulationClass

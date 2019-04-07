@@ -3,12 +3,14 @@
 #include "actor.hpp"
 #include "map.hpp"
 #include "utils/random.hpp"
+#include "event.hpp"
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 namespace Game {
 	namespace ActorUpdate {
-		constexpr float InteractionDisSqr = .25f;
+		constexpr float InteractionDisSqr = 0.125f;
 		bool SortedAxisCompare(const Actor* ac1, const Actor* ac2);
 		bool TileSortCompare(const Actor* ac1, const Actor* ac2);
 	}
@@ -31,9 +33,12 @@ namespace Game {
 		int GetDay() const { return m_day; }
 		float GetTime() const { return m_time; }
 
+		void AddEvent(std::unique_ptr<Event> event) { m_events.push_back(std::move(event)); }
+
 	private:
 		void Interaction(Actor& act1, Actor& act2, float dTime);
 		void UpdateActor(Actor& act, float dTime);
+		void UpdateEvents(float _deltaTime);
 		Math::Vec2I PositionToIndex(Math::Vec2 _position) const;
 		// gives position of a tile's center
 		Math::Vec2 IndexToPosition(Math::Vec2I _index) const;
@@ -53,6 +58,7 @@ namespace Game {
 		Utils::RandomGenerator m_randomGenerator;
 		int m_money;
 		float m_politicBar;
+		std::vector<std::unique_ptr<Event>> m_events;
 	};
 
 }

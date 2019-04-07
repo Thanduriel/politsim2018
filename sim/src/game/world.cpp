@@ -6,6 +6,14 @@
 
 namespace Game {
 
+	template<typename T>
+	T capAdd(T value, T diff, T max = 1, T min = 0) {
+		T res = value + diff;
+		if (res > max) res = max;
+		else if (res < min) res = min;
+		return res;
+	}
+
 	using namespace Math;
 
 	constexpr float MOVEMENT_SPEED = 0.4f;
@@ -15,7 +23,7 @@ namespace Game {
 		m_day(0),
 		m_randomGenerator(Utils::RandomSeed()),
 		m_tileSize(0.25),
-		m_money(1337),
+		m_money(100),
 		m_politicBar(0.5f) { }
 
 	void World::Init(Map&& _map)
@@ -63,6 +71,7 @@ namespace Game {
 			
 			}
 			m_politicBar = pol / m_actors.size();
+			m_money += m_politicBar * 128 + 1;
 		}
 		m_actorsInBuilding.resize(0);
 		m_actorsOnStreet.resize(0);
@@ -173,6 +182,12 @@ namespace Game {
 				break;
 			}
 
+		std::normal_distribution<float> d{ 0.8, 0.1 };
+		actor.health = (pow(m_map.Get(actor.activityLocations[Activity::Work]).info.income, 2) / pow(6, 2)) *d(m_randomGenerator);
+		actor.politic = m_randomGenerator.Uniform(0.f, 1.f);
+		actor.satisfaction = d(m_randomGenerator) - capAdd<float>(actor.health, -pow(actor.politic - 0.5, 2));
+		actor.activity = pow(1.f - actor.satisfaction, 2) * pow(actor.politic - .5f, 2) * actor.health * d(m_randomGenerator);
+		actor.income = m_map.Get(actor.activityLocations[Activity::Work]).info.income;
 		return actor;
 	}
 
@@ -184,6 +199,23 @@ namespace Game {
 				res.push_back(a);
 		}
 		return std::move(res);
+	}
+
+	void World::UpdateEvents(float _deltaTime)
+	{
+		for (auto& ev : m_events)
+		{
+			ev->duration -= _deltaTime;
+			for (Actor* actor : m_actorsOnStreet)
+				if (DistanceSq(actor->position, ev->position) < ev->rangeSq)
+					(*ev)(*actor, _deltaTime);
+		}
+
+		auto it = std::remove_if(m_events.begin(), m_events.end(), [](const auto& ev) 
+		{
+			return ev->duration <= 0.f;
+		});
+		m_events.erase(it, m_events.end());
 	}
 }
 
@@ -199,23 +231,38 @@ bool Game::ActorUpdate::TileSortCompare(const Actor* ac1, const Actor* ac2) {
 		< calcId(ac2->activityLocations[ac2->currentActivity]));
 }
 
-template<typename T>
-T capAdd(T value, T diff, T max = 1, T min = 0) {
-	T res = value + diff;
-	if (res > max) res = max;
-	else if (res < min) res = min;
-	return res;
-}
 void Game::World::Interaction(Actor& act1, Actor& act2, float dTime) {
-	// ähliche meinung
-	if (abs(act1.politic - act2.politic) <= 0.4f) {
+	int payGap = abs(act1.income - act2.income);
+	if (payGap > 3) {
+		Actor &low = (act1.income < act2.income ? act1 : act2),
+			&high = (act1.income < act2.income ? act2 : act1);
+		// fronten verhärtung
+		float mean = (act1.politic - act2.politic) / 2;
+		act1.politic = capAdd(act1.politic, (act1.politic - mean) / 5 * dTime);
+		act2.politic = capAdd(act2.politic, (act2.politic - mean) / 5 * dTime);
+		// wut beim armen
+		low.activity = capAdd(low.activity, abs(low.politic - mean) * dTime);
+		// argwohn beim reichen
+		high.satisfaction = capAdd(high.satisfaction, (1.f - low.satisfaction) / 3 * dTime);
+	} else {
+		// ähliche meinung
 		float mean = (act1.politic + act2.politic) / 2;
-		// act1.politic = capAdd(act1.politic, );
+		if (abs(act1.politic - act2.politic) <= 0.4f) {
+			act1.politic = capAdd(act1.politic, (mean - act1.politic) / 7 * dTime);
+			act2.politic = capAdd(act2.politic, (mean - act2.politic) / 7 * dTime);
+		}
+		else {
+			act1.politic = capAdd(act1.politic, (act1.politic - mean) / 7 * dTime);
+			act2.politic = capAdd(act2.politic, (act2.politic - mean) / 7 * dTime);
+			act1.activity = capAdd(act1.activity, abs(act1.politic - mean) * dTime);
+			act2.activity = capAdd(act2.activity, abs(act2.politic - mean) * dTime);
+		}
+		mean = (act1.satisfaction + act2.satisfaction) / 2;
+		act1.satisfaction = capAdd(act1.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
+		act2.satisfaction = capAdd(act2.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
 	}
 }
 void Game::World::UpdateActor(Actor& act, float dTime) {
-	int income = m_map.Get(act.activityLocations[Activity::Work]).info.income;
-	
 	// unzufriedenheit -> activ
 	act.activity = capAdd(act.activity, (.7f - act.satisfaction) * 0.1f * dTime);
 	// hoppy -> zufrieden
