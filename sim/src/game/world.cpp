@@ -185,8 +185,8 @@ namespace Game {
 		actor.health = (pow(m_map.Get(actor.activityLocations[Activity::Work]).info.income, 2) / pow(6, 2)) *d(m_randomGenerator);
 		actor.politic = m_randomGenerator.Uniform(0.f, 1.f);
 		actor.satisfaction = d(m_randomGenerator) - capAdd<float>(actor.health, -pow(actor.politic - 0.5, 2));
-		actor.activity = (1.f - actor.satisfaction) * (actor.politic - .5f) * actor.health * d(m_randomGenerator);
-
+		actor.activity = pow(1.f - actor.satisfaction, 2) * pow(actor.politic - .5f, 2) * actor.health * d(m_randomGenerator);
+		actor.income = m_map.Get(actor.activityLocations[Activity::Work]).info.income;
 		return actor;
 	}
 
@@ -214,24 +214,37 @@ bool Game::ActorUpdate::TileSortCompare(const Actor* ac1, const Actor* ac2) {
 }
 
 void Game::World::Interaction(Actor& act1, Actor& act2, float dTime) {
-	// ähliche meinung
-	float mean = (act1.politic + act2.politic) / 2;
-	if (abs(act1.politic - act2.politic) <= 0.4f) {
-		act1.politic = capAdd(act1.politic, (mean - act1.politic) / 7 * dTime);
-		act2.politic = capAdd(act2.politic, (mean - act2.politic) / 7 * dTime);
+	int payGap = abs(act1.income - act2.income);
+	if (payGap > 3) {
+		Actor &low = (act1.income < act2.income ? act1 : act2),
+			&high = (act1.income < act2.income ? act2 : act1);
+		// fronten verhärtung
+		float mean = (act1.politic - act2.politic) / 2;
+		act1.politic = capAdd(act1.politic, (act1.politic - mean) / 5 * dTime);
+		act2.politic = capAdd(act2.politic, (act2.politic - mean) / 5 * dTime);
+		// wut beim armen
+		low.activity = capAdd(low.activity, abs(low.politic - mean) * dTime);
+		// argwohn beim reichen
+		high.satisfaction = capAdd(high.satisfaction, (1.f - low.satisfaction) / 3 * dTime);
 	} else {
-		act1.politic = capAdd(act1.politic, (act1.politic - mean) / 7 * dTime);
-		act2.politic = capAdd(act2.politic, (act2.politic - mean) / 7 * dTime);
-		act1.activity = capAdd(act1.activity, abs(act1.politic - mean) * dTime);
-		act2.activity = capAdd(act2.activity, abs(act2.politic - mean) * dTime);
+		// ähliche meinung
+		float mean = (act1.politic + act2.politic) / 2;
+		if (abs(act1.politic - act2.politic) <= 0.4f) {
+			act1.politic = capAdd(act1.politic, (mean - act1.politic) / 7 * dTime);
+			act2.politic = capAdd(act2.politic, (mean - act2.politic) / 7 * dTime);
+		}
+		else {
+			act1.politic = capAdd(act1.politic, (act1.politic - mean) / 7 * dTime);
+			act2.politic = capAdd(act2.politic, (act2.politic - mean) / 7 * dTime);
+			act1.activity = capAdd(act1.activity, abs(act1.politic - mean) * dTime);
+			act2.activity = capAdd(act2.activity, abs(act2.politic - mean) * dTime);
+		}
+		mean = (act1.satisfaction + act2.satisfaction) / 2;
+		act1.satisfaction = capAdd(act1.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
+		act2.satisfaction = capAdd(act2.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
 	}
-	mean = (act1.satisfaction + act2.satisfaction) / 2;
-	act1.satisfaction = capAdd(act1.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
-	act2.satisfaction = capAdd(act2.satisfaction, (mean - act1.satisfaction) / 3 * dTime);
 }
 void Game::World::UpdateActor(Actor& act, float dTime) {
-	int income = m_map.Get(act.activityLocations[Activity::Work]).info.income;
-	
 	// unzufriedenheit -> activ
 	act.activity = capAdd(act.activity, (.7f - act.satisfaction) * 0.1f * dTime);
 	// hoppy -> zufrieden
