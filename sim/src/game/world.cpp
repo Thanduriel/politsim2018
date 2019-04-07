@@ -70,13 +70,21 @@ namespace Game {
 		{
 			// reached next tile
 			if (actor.currentPath.size() && PositionToIndex(actor.position) == actor.currentPath.back())
+			{
 				actor.currentPath.pop_back();
+				if (!actor.currentPath.size())
+				{
+					const Vec2 center = IndexToPosition(PositionToIndex(actor.position));
+					const Vec2 noise(m_randomGenerator.Uniform(-0.125f, 0.125f), m_randomGenerator.Uniform(-0.125f, 0.125f));
+					actor.positionNoise = center + noise;
+				}
+			}
 			// currently on the way
 			if (actor.currentPath.size())
 			{
 				const Vec2 targetPos = IndexToPosition(actor.currentPath.back());
 				const Vec2 dir = (targetPos - actor.position).Normalized();
-				const Vec2 noise = m_randomGenerator.Direction()* 0.2f;
+				const Vec2 noise = m_randomGenerator.Direction()* 0.4f;
 
 				actor.position += (dir + noise).Normalized() * _deltaTime * MOVEMENT_SPEED;
 			}
@@ -88,6 +96,13 @@ namespace Game {
 				actor.currentActivity = next;
 				const Vec2I curInd = PositionToIndex(actor.position);
 				actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
+			}
+			// just move around a little on the current tile
+			else
+			{
+				const Vec2 dir = (actor.positionNoise) - actor.position;
+				const float l = dir.Len();
+				if (l > 0.01f) actor.position += dir / l * 0.1f * _deltaTime;
 			}
 
 			if (actor.currentPath.size() == 0) {
@@ -142,6 +157,7 @@ namespace Game {
 		Actor actor{};
 		actor.activityLocations = { RandVec(_places.work), RandVec(_places.hobby), RandVec(_places.home) };
 		actor.position = IndexToPosition(actor.activityLocations[Activity::Home]);
+		actor.positionNoise = actor.position;
 		actor.wakeUpTime = m_randomGenerator.Uniform(0u, 10u) > 1u ?
 			daySchedule(m_randomGenerator)
 			: nightSchedule(m_randomGenerator);
