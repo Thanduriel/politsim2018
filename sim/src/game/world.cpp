@@ -28,6 +28,7 @@ namespace Game {
 
 	void World::Init(Map&& _map)
 	{
+		demo = false;
 		m_map = std::move(_map);
 		m_timeFactor = 1.f / 60.f;
 		const int numActors = 256;
@@ -78,40 +79,42 @@ namespace Game {
 		for (Actor& actor : m_actors)
 		{
 			// reached next tile
-			if (actor.currentPath.size() && PositionToIndex(actor.position) == actor.currentPath.back())
-			{
-				actor.currentPath.pop_back();
-				if (!actor.currentPath.size())
+			if (!actor.stunned) {
+				if (actor.currentPath.size() && PositionToIndex(actor.position) == actor.currentPath.back())
 				{
-					const Vec2 center = IndexToPosition(PositionToIndex(actor.position));
-					const Vec2 noise(m_randomGenerator.Uniform(-0.125f, 0.125f), m_randomGenerator.Uniform(-0.125f, 0.125f));
-					actor.positionNoise = center + noise;
+					actor.currentPath.pop_back();
+					if (!actor.currentPath.size())
+					{
+						const Vec2 center = IndexToPosition(PositionToIndex(actor.position));
+						const Vec2 noise(m_randomGenerator.Uniform(-0.125f, 0.125f), m_randomGenerator.Uniform(-0.125f, 0.125f));
+						actor.positionNoise = center + noise;
+					}
 				}
-			}
-			// currently on the way
-			if (actor.currentPath.size())
-			{
-				const Vec2 targetPos = IndexToPosition(actor.currentPath.back());
-				const Vec2 dir = (targetPos - actor.position).Normalized();
-				const Vec2 noise = m_randomGenerator.Direction()* 0.4f;
+				// currently on the way
+				if (actor.currentPath.size())
+				{
+					const Vec2 targetPos = IndexToPosition(actor.currentPath.back());
+					const Vec2 dir = (targetPos - actor.position).Normalized();
+					const Vec2 noise = m_randomGenerator.Direction()* 0.4f;
 
-				actor.position += (dir + noise).Normalized() * _deltaTime * MOVEMENT_SPEED;
-			}
-			// switch activity
-			else if(Activity next = static_cast<Activity>((actor.currentActivity + 1) % ACTIVITY_COUNT); 
-				std::abs(m_time - Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next])) < 0.1f / 24.f)
-			{
-			//	std::cout << "switching to activity " << next << " at time " << m_time << "\n";
-				actor.currentActivity = next;
-				const Vec2I curInd = PositionToIndex(actor.position);
-				actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
-			}
-			// just move around a little on the current tile
-			else
-			{
-				const Vec2 dir = (actor.positionNoise) - actor.position;
-				const float l = dir.Len();
-				if (l > 0.01f) actor.position += dir / l * 0.1f * _deltaTime;
+					actor.position += (dir + noise).Normalized() * _deltaTime * MOVEMENT_SPEED;
+				}
+				// switch activity
+				else if (Activity next = static_cast<Activity>((actor.currentActivity + 1) % ACTIVITY_COUNT);
+					std::abs(m_time - Utils::TimeOfDay(actor.wakeUpTime + TIME_TABLE[next])) < 0.1f / 24.f)
+				{
+					//	std::cout << "switching to activity " << next << " at time " << m_time << "\n";
+					actor.currentActivity = next;
+					const Vec2I curInd = PositionToIndex(actor.position);
+					actor.currentPath = m_map.ComputePath(curInd, actor.activityLocations[next]);
+				}
+				// just move around a little on the current tile
+				else
+				{
+					const Vec2 dir = (actor.positionNoise) - actor.position;
+					const float l = dir.Len();
+					if (l > 0.01f) actor.position += dir / l * 0.1f * _deltaTime;
+				}
 			}
 
 			if (actor.currentPath.size() == 0) {
@@ -137,7 +140,10 @@ namespace Game {
 					activity += ((*itr2)->politic - 0.5f) * (*itr2)->activity;
 					Interaction(**itr1, **itr2, _deltaTime);
 			}
-			if (activity > 1.f || activity < -1.f) {
+			std::cout << demo << "\n";
+			if ((activity > .5f || activity< -1.f) && !demo) {
+				demo = true;
+				std::cout << "start demo\n";
 				m_events.push_back(std::unique_ptr<Events::Demo>(new Events::Demo(0.2f, 0.25f, (activity > 0.f ? false : true), (*itr1)->position)));
 			}
 		}
@@ -224,11 +230,16 @@ namespace Game {
 			for (Actor* actor : m_actorsOnStreet)
 				if (DistanceSq(actor->position, ev->position) < ev->rangeSq)
 				{
-					std::cout << "try influencing\n";
+					// std::cout << "try influencing\n";
 					(*ev)(*actor, _deltaTime);
 				}
 		}
 
+		demo = false;
+		for (auto itr = m_events.begin(); itr < m_events.end(); ++itr) {
+			if (dynamic_cast<Events::Demo*>(itr->get()) != nullptr)
+				demo = true;
+		}
 		auto it = std::remove_if(m_events.begin(), m_events.end(), [](const auto& ev) 
 		{
 			return ev->duration <= 0.f;
@@ -283,7 +294,7 @@ void Game::World::Interaction(Actor& act1, Actor& act2, float dTime) {
 void Game::World::UpdateActor(Actor& act, float dTime) {
 	act.stunned = false;
 	// unzufriedenheit -> activ
-	act.activity = capAdd(act.activity, (.7f - act.satisfaction) * 0.1f * dTime);
+	act.activity = capAdd(act.activity, (1.f - act.satisfaction) * 5 * dTime);
 	// hoppy -> zufrieden
 	if (PositionToIndex(act.position) == (act.activityLocations[Activity::Hobby]))
 		act.satisfaction = capAdd(act.satisfaction, 0.1f * dTime);

@@ -17,6 +17,7 @@ namespace Game {
 	class World
 	{
 	public:
+		bool demo;
 		World();
 
 		void Init(Map&& _map);
