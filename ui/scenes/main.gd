@@ -1,9 +1,8 @@
 extends Node
 
 onready var global = get_node("/root/global")
-var citizen_texture = load("res://assets/citizen/citizen1.tres")
-
-onready var template = preload("res://scenes/citizen.tscn")
+onready var template1 = preload("res://scenes/citizen.tscn")
+onready var template2 = preload("res://scenes/citizen2.tscn")
 
 var citizen = Node2D.new()
 
@@ -29,7 +28,11 @@ func _process(delta):
 	if all_citizen.size() < pos.size():
 		var missing = pos.size() - all_citizen.size()
 		for i in range(missing):
-			var c = template.instance()
+			var c
+			if randf() > 0.5:
+				c = template1.instance()
+			else:
+				c = template2.instance()
 			c.scale *= 0.3
 			citizen.add_child(c)
 	

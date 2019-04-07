@@ -9,6 +9,8 @@ extended and combined into Protest.wav
 shortened
 4. [Prague (city center sounds) » Prague, Staro Mesto, City Center part.5] (https://freesound.org/people/vonfleisch/sounds/212032/)
 ** by vonfleisch (https://freesound.org/people/vonfleisch/)
+5. [Till With Bell.wav] (https://freesound.org/people/Benboncan/sounds/91924/)
+** by Benboncan (https://freesound.org/people/Benboncan/)
 
 # CC BY-NC 3.0    (https://creativecommons.org/licenses/by-nc/3.0/)
 1. [15 Thousand People Sound] (found at http://soundbible.com/1767-15-Thousand-People.html),
@@ -27,7 +29,10 @@ shortened
 ** by GameAudio (https://freesound.org/people/GameAudio/)
 2. [City ambience » Piccadilly_Circus_Ambience.WAV ] (https://freesound.org/people/habbis92/sounds/240233/)
 ** by habbis92 (https://freesound.org/people/habbis92/)
-changed
+adapted
+3. [ Police and Emergency Vehicle Sirens » police3.wav ] (https://freesound.org/people/guitarguy1985/sounds/70939/)
+** by guitarguy1985 (https://freesound.org/people/guitarguy1985/)
+shortened
 
 #Also
 1. [Riot Angry Mob Sound Effect] (found at https://www.youtube.com/watch?v=lHhx8Qp_l6Q)
